@@ -15,7 +15,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/qeesung/image2asicc/convert"
+	"github.com/qeesung/image2ascii/convert"
 	"image"
 	_ "image/jpeg"
 	_ "image/png"
@@ -42,7 +42,8 @@ func main() {
 }
 ```
 
-output
-Raw Image             |  ASCII Image
-:-------------------------:|:-------------------------:
-![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)  |  ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii.png)
+## example outputs
+
+| Raw Image         | ASCII Image           |
+| ------------- |:-------------:| 
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii.png) |
