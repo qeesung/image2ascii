@@ -3,10 +3,12 @@ package convert
 
 import (
 	"bytes"
-	"github.com/qeesung/image2asicc/ascii"
-	"github.com/qeesung/image2asicc/resize"
+	"github.com/qeesung/image2ascii/ascii"
+	"github.com/qeesung/image2ascii/resize"
 	"image"
 	"image/color"
+	"log"
+	"os"
 )
 
 type Options struct {
@@ -44,4 +46,20 @@ func Image2ASCIIString(image image.Image, options *Options) string {
 		buffer.WriteString(convertedPixelASCII[i])
 	}
 	return buffer.String()
+}
+
+// Convert a image file to ascii string
+func ImageFile2ASCIIString(imageFilename string, option *Options) string {
+	f, err := os.Open(imageFilename)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	img, _, err := image.Decode(f)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	f.Close()
+	return Image2ASCIIString(img, option)
 }

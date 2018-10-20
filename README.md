@@ -16,29 +16,14 @@ package main
 import (
 	"fmt"
 	"github.com/qeesung/image2ascii/convert"
-	"image"
 	_ "image/jpeg"
 	_ "image/png"
-	"log"
-	"os"
 )
 
 func main() {
-	f, err := os.Open("example/images/lufei.jpg")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	img, _, err := image.Decode(f)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	f.Close()
-	asciiImage := convert.Image2ASCIIString(img, &convert.Options{
-		Ratio: 0.2,
-	})
-	fmt.Print(asciiImage)
+	fmt.Print(convert.ImageFile2ASCIIString("example/images/baozou.jpg", &convert.Options{
+		Ratio: 0.5,
+	}))
 }
 ```
 
