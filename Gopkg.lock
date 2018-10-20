@@ -2,6 +2,14 @@
 
 
 [[projects]]
+  digest = "1:0981502f9816113c9c8c4ac301583841855c8cf4da8c72f696b3ebedf6d0e4e5"
+  name = "github.com/mattn/go-isatty"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "6ca4dbf54d38eea1a992b3c722a76a5d1c4cb25c"
+  version = "v0.0.4"
+
+[[projects]]
   branch = "master"
   digest = "1:34534b73e925d20cc72cf202f8b482fdcbe3a1b113e19375f31aadabd0f0f97d"
   name = "github.com/nfnt/resize"
@@ -9,9 +17,29 @@
   pruneopts = "UT"
   revision = "83c6a9932646f83e3267f353373d47347b6036b2"
 
+[[projects]]
+  digest = "1:9b4fd49bb5908e00ecb36f3199008562d5c9fa7b3ddee554465f4d8bfde52d4c"
+  name = "github.com/wayneashleyberry/terminal-dimensions"
+  packages = ["."]
+  pruneopts = "UT"
+  revision = "29d939246793fbd8100dcf74700637adcb839bc5"
+  version = "v1.0.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:be4f165c438aa39318fd5c8c180a95f4a52524641c0b714638b0fd9fd912b38d"
+  name = "golang.org/x/sys"
+  packages = ["unix"]
+  pruneopts = "UT"
+  revision = "8e24a49d80f82323e1c4db1b5da3e0f31171a151"
+
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
-  input-imports = ["github.com/nfnt/resize"]
+  input-imports = [
+    "github.com/mattn/go-isatty",
+    "github.com/nfnt/resize",
+    "github.com/wayneashleyberry/terminal-dimensions",
+  ]
   solver-name = "gps-cdcl"
   solver-version = 1

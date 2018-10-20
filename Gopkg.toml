@@ -32,3 +32,11 @@
 [prune]
   go-tests = true
   unused-packages = true
+
+[[constraint]]
+  name = "github.com/mattn/go-isatty"
+  version = "0.0.4"
+
+[[constraint]]
+  name = "github.com/wayneashleyberry/terminal-dimensions"
+  version = "1.0.0"
