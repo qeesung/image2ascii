@@ -3,7 +3,6 @@
 package convert
 
 import (
-	"fmt"
 	"github.com/mattn/go-isatty"
 	"github.com/nfnt/resize"
 	terminal "github.com/wayneashleyberry/terminal-dimensions"
@@ -30,7 +29,6 @@ func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 
 	// use the ratio the scale the image
 	if options.ExpectedHeight == -1 && options.ExpectedWidth == -1 && ratio != 1 {
-		fmt.Println(ratio)
 		newWidth = int(float64(sz.Max.X) * ratio)
 		newHeight = int(float64(sz.Max.Y) * ratio * charWidth())
 	}
