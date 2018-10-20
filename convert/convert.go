@@ -4,7 +4,6 @@ package convert
 import (
 	"bytes"
 	"github.com/qeesung/image2ascii/ascii"
-	"github.com/qeesung/image2ascii/resize"
 	"image"
 	"image/color"
 	"log"
@@ -12,13 +11,16 @@ import (
 )
 
 type Options struct {
-	Ratio float64
+	Ratio          float64
+	ExpectedWidth  int
+	ExpectedHeight int
+	FitScreen      bool
 }
 
 // Convert a image to ascii matrix
 func Image2ASCIIMatrix(image image.Image, options *Options) []string {
 	// Resize the convert first
-	newImage := resize.ScaleImage(image, options.Ratio)
+	newImage := ScaleImage(image, options)
 	sz := newImage.Bounds()
 	newWidth := sz.Max.Y
 	newHeight := sz.Max.X
