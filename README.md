@@ -1,5 +1,7 @@
 # :foggy:image2ascii
 
+[![Build Status](https://travis-ci.org/qeesung/image2ascii.svg?branch=master)](https://travis-ci.org/qeesung/image2ascii)
+
 Convert image to ASCII
 
 ## installation
