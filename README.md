@@ -1,3 +1,3 @@
-# image2asicc
+# image2ascii
 
-Convert image to ASICC
+Convert image to ASCII
