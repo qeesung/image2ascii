@@ -14,10 +14,6 @@ go:
 git:
   depth: 1
 
-before_script:
-  - go get github.com/tools/godep
-  - dep ensure -v
-
 
 script:
   - go build
