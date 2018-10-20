@@ -1,0 +1,32 @@
+language: go
+
+os:
+  - linux
+  - osx
+  - windows
+
+go:
+  - "1.x"
+  - "1.8"
+  - "1.10.x"
+  - "1.11.x"
+
+git:
+  depth: 1
+
+before_script:
+  - dep ensure -v
+
+
+script:
+  - go build
+
+deploy:
+  provider: releases
+  api_key: ${GITHUB_API_KEY}
+  file_glob: true
+  file: "image2ascii*"
+  skip_cleanup: true
+  on:
+    all_branches: true
+    tags: true
