@@ -23,7 +23,7 @@ func charWidth() float64 {
 	if isWindows() {
 		return 0.714
 	} else {
-		return 0.625
+		return 0.5
 	}
 }
 
