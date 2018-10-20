@@ -1,4 +1,4 @@
-# image2ascii
+# :foggy:image2ascii
 
 Convert image to ASCII
 
