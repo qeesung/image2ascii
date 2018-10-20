@@ -18,6 +18,7 @@ image2ascii version: image2ascii/1.0.0
 Usage: image2ascii [-s] -f <filename> -r <ratio> -w <width> -g <height>
 
 Options:
+  -c    Colored the ascii when output to the terminal (default true)
   -f string
         Image filename to be convert
   -g int
@@ -50,6 +51,15 @@ convert the image to ascii fit the screen
 image2ascii -f example/images/lufei.jpg -s
 ```
 
+convert the image without the color
+```bash
+image2ascii -f example/images/lufei.jpg -s -c=false
+```
+
+convert the image disable fit the screen
+```bash
+image2ascii -f example/images/lufei.jpg -s=false
+```
 
 ## library usage
 
