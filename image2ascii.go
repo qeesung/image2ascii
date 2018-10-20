@@ -27,6 +27,10 @@ func init() {
 func main() {
 	flag.Parse()
 
+	if imageFilename == "" {
+		usage()
+		return
+	}
 	// config  the options
 	convertOptions := &convert.Options{
 		Ratio:          ratio,
