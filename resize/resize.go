@@ -5,9 +5,6 @@ package resize
 import (
 	"github.com/nfnt/resize"
 	"image"
-	"image/jpeg"
-	"log"
-	"os"
 	"runtime"
 )
 
@@ -18,14 +15,6 @@ func ScaleImage(image image.Image, ratio float64) (newImage image.Image) {
 	newHeight := int(float64(sz.Max.Y) * ratio * charWidth())
 
 	newImage = resize.Resize(uint(newWidth), uint(newHeight), image, resize.Lanczos3)
-	out, err := os.Create("test_resized.jpg")
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer out.Close()
-
-	// write new image to file
-	jpeg.Encode(out, newImage, nil)
 	return
 }
 
