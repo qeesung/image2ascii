@@ -4,6 +4,7 @@
 package ascii
 
 import (
+	"github.com/aybabtme/rgbterm"
 	"image/color"
 	"math"
 	"reflect"
@@ -14,8 +15,8 @@ func ConvertPixelToASCII(pixel color.Color, options *Options) string {
 	defaultOptions := NewOptions()
 	defaultOptions.mergeOptions(options)
 
-	if defaultOptions.reverse {
-		defaultOptions.pixels = reverse(defaultOptions.pixels)
+	if defaultOptions.Reverse {
+		defaultOptions.Pixels = reverse(defaultOptions.Pixels)
 	}
 
 	r := reflect.ValueOf(pixel).FieldByName("R").Uint()
@@ -25,8 +26,11 @@ func ConvertPixelToASCII(pixel color.Color, options *Options) string {
 	value := intensity(r, g, b, a)
 
 	// Choose the char
-	precision := float64(255 * 3 / (len(options.pixels) - 1))
-	rawChar := options.pixels[roundValue(float64(value)/precision)]
+	precision := float64(255 * 3 / (len(options.Pixels) - 1))
+	rawChar := options.Pixels[roundValue(float64(value)/precision)]
+	if options.Colored {
+		return decorateWithColor(r, g, b, rawChar)
+	}
 	return string([]byte{rawChar})
 }
 
@@ -44,4 +48,9 @@ func reverse(numbers []byte) []byte {
 
 func intensity(r, g, b, a uint64) uint64 {
 	return (r + g + b) * a / 255
+}
+
+func decorateWithColor(r, g, b uint64, rawChar byte) string {
+	coloredChar := rgbterm.FgString(string([]byte{rawChar}), uint8(r), uint8(g), uint8(b))
+	return coloredChar
 }

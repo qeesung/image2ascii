@@ -14,6 +14,7 @@ var ratio float64
 var expectedWidth int
 var expectedHeight int
 var fitScreen bool
+var colored bool
 
 func init() {
 	flag.StringVar(&imageFilename, "f", "", "Image filename to be convert")
@@ -21,6 +22,7 @@ func init() {
 	flag.IntVar(&expectedWidth, "w", -1, "Expected image width, -1 for image default width")
 	flag.IntVar(&expectedHeight, "g", -1, "Expected image height, -1 for image default height")
 	flag.BoolVar(&fitScreen, "s", true, "Fit the terminal screen, ignored when use -w, -g, -r")
+	flag.BoolVar(&colored, "c", true, "Colored the ascii when output to the terminal")
 	flag.Usage = usage
 }
 
@@ -37,6 +39,7 @@ func main() {
 		ExpectedHeight: expectedHeight,
 		ExpectedWidth:  expectedWidth,
 		FitScreen:      fitScreen,
+		Colored:        colored,
 	}
 	fmt.Print(convert.ImageFile2ASCIIString(imageFilename, convertOptions))
 }

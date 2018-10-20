@@ -15,12 +15,13 @@ type Options struct {
 	ExpectedWidth  int
 	ExpectedHeight int
 	FitScreen      bool
+	Colored bool
 }
 
 // Convert a image to ascii matrix
-func Image2ASCIIMatrix(image image.Image, options *Options) []string {
+func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string {
 	// Resize the convert first
-	newImage := ScaleImage(image, options)
+	newImage := ScaleImage(image, imageConvertOptions)
 	sz := newImage.Bounds()
 	newWidth := sz.Max.Y
 	newHeight := sz.Max.X
@@ -30,6 +31,7 @@ func Image2ASCIIMatrix(image image.Image, options *Options) []string {
 			pixel := color.NRGBAModel.Convert(newImage.At(j, i))
 			// Convert the pixel to ascii char
 			pixelConvertOptions := ascii.NewOptions()
+			pixelConvertOptions.Colored = imageConvertOptions.Colored
 			rawChar := ascii.ConvertPixelToASCII(pixel, &pixelConvertOptions)
 			rawCharValues = append(rawCharValues, rawChar)
 		}

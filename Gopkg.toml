@@ -40,3 +40,7 @@
 [[constraint]]
   name = "github.com/wayneashleyberry/terminal-dimensions"
   version = "1.0.0"
+
+[[constraint]]
+  branch = "master"
+  name = "github.com/aybabtme/rgbterm"
