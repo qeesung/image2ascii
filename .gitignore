@@ -99,5 +99,7 @@ modules.xml
 .idea/misc.xml
 *.ipr
 
+image2ascii
+
 
 # End of https://www.gitignore.io/api/go,intellij+all
