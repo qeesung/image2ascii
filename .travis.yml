@@ -11,10 +11,6 @@ go:
   - "1.10.x"
   - "1.11.x"
 
-git:
-  depth: 1
-
-
 script:
   - go build
 
