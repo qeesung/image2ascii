@@ -75,6 +75,9 @@ func main() {
 | Raw Image         | ASCII Image           |
 | ------------- |:-------------:| 
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii.png) |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii_colored.png) |
  ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii.png) |
+ ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii_colored.png) |
   ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii.png) |
+  ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii_colored.png) |
 
