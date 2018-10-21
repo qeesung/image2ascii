@@ -83,6 +83,32 @@ func main() {
 }
 ```
 
+convert options
+
+```golang
+type Options struct {
+	Ratio          float64 .       // Scale Ratio
+	ExpectedWidth  int             // Convert the image with fixed width
+	ExpectedHeight int             // Convert the image with fixed height
+	FitScreen      bool            // Scale the image to fit the tereminal screen
+	Colored bool                   // if convert the image to colored ascii
+}
+```
+
+supported convert function
+```golang
+// convert a image object to ascii matrix
+func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string {}
+
+// convert a image object to ascii matrix and then join the matrix to a string
+func Image2ASCIIString(image image.Image, options *Options) string {}
+
+// convert a image object by input a string to ascii matrix then join the matrix to a string
+func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
+```
+
+
+
 ## Sample outputs
 
 | Raw Image                                                                                       | ASCII Image                                                                                                |
