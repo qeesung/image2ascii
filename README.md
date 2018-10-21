@@ -6,7 +6,7 @@
 
 Image2ASCII is a class library that converts images into ASCII images and provides command-line tools for easy use.
 
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/demo.gif?raw=true)
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/lufei.gif?raw=true)
 
 ## Installation
 
