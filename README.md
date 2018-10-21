@@ -4,7 +4,9 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/71a3059b49274dde9d81d58cedd80962)](https://app.codacy.com/app/qeesung/image2ascii?utm_source=github.com&utm_medium=referral&utm_content=qeesung/image2ascii&utm_campaign=Badge_Grade_Dashboard)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-Convert image to ASCII
+Image2ASCII is a class library that converts images into ASCII images and provides command-line tools for easy use.
+
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/demo.gif?raw=true)
 
 ## Installation
 
