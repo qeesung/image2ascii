@@ -43,7 +43,7 @@ convert the image to ascii image with fixed width and height
 # height: 30
 image2ascii -f example/images/baozou.jpg -w 100 -g 30
 ```
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/pikaqiu.gif?raw=true)
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/baozou.gif?raw=true)
 
 
 convert the image to ascii image by ratio
