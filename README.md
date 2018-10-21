@@ -124,4 +124,4 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
 
 ## License
 
-This project is under the MIT License. See the [LICENSE](https://github.com/esimov/diagram/blob/master/LICENSE) file for the full license text.
+This project is under the MIT License. See the [LICENSE](https://github.com/qeesung/image2ascii/blob/master/LICENSE) file for the full license text.
