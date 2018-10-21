@@ -8,10 +8,6 @@ Image2ASCII is a class library that converts images into ASCII images and provid
 
 ![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/lufei.gif?raw=true)
 
-
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/baozou.gif?raw=true)
-
-
 ## Installation
 
 ```bash
