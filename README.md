@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/qeesung/image2ascii.svg?branch=master)](https://travis-ci.org/qeesung/image2ascii)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/71a3059b49274dde9d81d58cedd80962)](https://app.codacy.com/app/qeesung/image2ascii?utm_source=github.com&utm_medium=referral&utm_content=qeesung/image2ascii&utm_campaign=Badge_Grade_Dashboard)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 Convert image to ASCII
 
@@ -119,3 +120,8 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii_colored.png) |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii.png)          |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii_colored.png)  |
+
+
+## License
+
+This project is under the MIT License. See the [LICENSE](https://github.com/esimov/diagram/blob/master/LICENSE) file for the full license text.
