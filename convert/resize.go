@@ -1,5 +1,3 @@
-// The resize package resize the image to expected size
-// base on the ratio, for the most matched display
 package convert
 
 import (

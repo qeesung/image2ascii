@@ -1,4 +1,4 @@
-// The convert package convert a image to ascii string or matrix
+// Package convert can convert a image to ascii string or matrix
 package convert
 
 import (
