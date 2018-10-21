@@ -10,7 +10,7 @@ import (
 	"runtime"
 )
 
-// Resize the convert to expected size base on the ratio
+// ScaleImage resize the convert to expected size base on the convert options
 func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 	sz := image.Bounds()
 	ratio := options.Ratio
@@ -46,7 +46,7 @@ func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 	return
 }
 
-// Get the terminal char width on different system
+// charWidth get the terminal char width on different system
 func charWidth() float64 {
 	if isWindows() {
 		return 0.714
@@ -54,11 +54,12 @@ func charWidth() float64 {
 	return 0.5
 }
 
-// Check if current system is windows
+// isWindows check if current system is windows
 func isWindows() bool {
 	return runtime.GOOS == "windows"
 }
 
+// getFitScreenSize get the current terminal screen size
 func getFitScreenSize() (newWidth, newHeight uint) {
 	if !isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd()) {
 		log.Fatal("Can not detect the terminal, please disable the '-s fitScreen' option")

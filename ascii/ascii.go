@@ -1,4 +1,4 @@
-// The ascii package can convert a image pixel to a raw char
+// Package ascii can convert a image pixel to a raw char
 // base on it's RGBA value, in another word, input a image pixel
 // output a raw char ascii.
 package ascii
@@ -10,7 +10,7 @@ import (
 	"reflect"
 )
 
-// Convert a pixel to a ASCII char string
+// ConvertPixelToASCII converts a pixel to a ASCII char string
 func ConvertPixelToASCII(pixel color.Color, options *Options) string {
 	defaultOptions := NewOptions()
 	defaultOptions.mergeOptions(options)
@@ -50,6 +50,7 @@ func intensity(r, g, b, a uint64) uint64 {
 	return (r + g + b) * a / 255
 }
 
+// decorateWithColor decorate the raw char with the color base on r,g,b value
 func decorateWithColor(r, g, b uint64, rawChar byte) string {
 	coloredChar := rgbterm.FgString(string([]byte{rawChar}), uint8(r), uint8(g), uint8(b))
 	return coloredChar

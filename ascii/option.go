@@ -1,25 +1,25 @@
 package ascii
 
-// Convert options
+// Options convert pixel to raw char
 type Options struct {
 	Pixels  []byte
 	Reverse bool
 	Colored bool
 }
 
-// Default options
+// DefaultOptions that contains the default pixels
 var DefaultOptions = Options{
 	Pixels:  []byte(" .,:;i1tfLCG08@"),
 	Reverse: false,
 	Colored: true,
 }
 
-// Create a new options
+// NewOptions create a new convert option
 func NewOptions() Options {
 	return DefaultOptions
 }
 
-// Merge options
+// mergeOptions merge two options
 func (options *Options) mergeOptions(newOptions *Options) {
 	options.Pixels = append([]byte{}, newOptions.Pixels...)
 	options.Reverse = newOptions.Reverse

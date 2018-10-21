@@ -10,15 +10,16 @@ import (
 	"os"
 )
 
+// Options to convert the image to ASCII
 type Options struct {
 	Ratio          float64
 	ExpectedWidth  int
 	ExpectedHeight int
 	FitScreen      bool
-	Colored bool
+	Colored        bool
 }
 
-// Convert a image to ascii matrix
+// Image2ASCIIMatrix converts a image to ASCII matrix
 func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string {
 	// Resize the convert first
 	newImage := ScaleImage(image, imageConvertOptions)
@@ -40,8 +41,7 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 	return rawCharValues
 }
 
-// Convert a image to ascii matrix, then concat the matrix value
-// to a long string for easy display
+// Image2ASCIIString converts a image to ascii matrix, and the join the matrix to a string
 func Image2ASCIIString(image image.Image, options *Options) string {
 	convertedPixelASCII := Image2ASCIIMatrix(image, options)
 	var buffer bytes.Buffer
@@ -52,7 +52,7 @@ func Image2ASCIIString(image image.Image, options *Options) string {
 	return buffer.String()
 }
 
-// Convert a image file to ascii string
+// ImageFile2ASCIIString converts a image file to ascii string
 func ImageFile2ASCIIString(imageFilename string, option *Options) string {
 	f, err := os.Open(imageFilename)
 	if err != nil {
