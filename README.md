@@ -8,6 +8,10 @@ Image2ASCII is a class library that converts images into ASCII images and provid
 
 ![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/lufei.gif?raw=true)
 
+
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/baozou.gif?raw=true)
+
+
 ## Installation
 
 ```bash
@@ -41,16 +45,20 @@ convert the image to ascii image with fixed width and height
 ```bash
 # width: 100
 # height: 30
-image2ascii -f example/images/lufei.jpg -w 100 -g 30
+image2ascii -f example/images/baozou.jpg -w 100 -g 30
 ```
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/pikaqiu.gif?raw=true)
+
 
 convert the image to ascii image by ratio
 ```bash
 # ratio: 0.3
 # width: imageWidth * 0.3
 # height: imageHeight * 0.3
-image2ascii -f example/images/lufei.jpg -r 0.3
+image2ascii -f example/images/pikaqiu.jpg -r 0.3
 ```
+![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/pikaqiu.gif?raw=true)
+
 
 convert the image to ascii fit the screen
 ```bash
