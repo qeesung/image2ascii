@@ -52,9 +52,8 @@ func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 func charWidth() float64 {
 	if isWindows() {
 		return 0.714
-	} else {
-		return 0.5
 	}
+	return 0.5
 }
 
 // Check if current system is windows
