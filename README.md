@@ -5,13 +5,13 @@
 
 Convert image to ASCII
 
-## installation
+## Installation
 
 ```bash
 go get https://github.com/qeesung/image2ascii
 ```
 
-## cli usage
+## CLI usage
 
 ```bash
 image2ascii version: image2ascii/1.0.0
@@ -64,7 +64,7 @@ convert the image disable fit the screen
 image2ascii -f example/images/lufei.jpg -s=false
 ```
 
-## library usage
+## Library usage
 
 ```golang
 package main
@@ -83,7 +83,7 @@ func main() {
 }
 ```
 
-## example outputs
+## Sample outputs
 
 | Raw Image                                                                                       | ASCII Image                                                                                                |
 |:-----------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
@@ -93,4 +93,3 @@ func main() {
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii_colored.png) |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii.png)          |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii_colored.png)  |
-
