@@ -9,13 +9,12 @@ import (
 
 func main() {
 	fmt.Print(convert.ImageFile2ASCIIString("example/images/baozou.jpg", &convert.Options{
-		Ratio: 1,
-		FitScreen: true,
-		ExpectedHeight:51,
-		ExpectedWidth: 185,
+		Ratio:          1,
+		FitScreen:      true,
+		ExpectedHeight: 51,
+		ExpectedWidth:  185,
 	}))
 }
-
 
 // outout
 /*
