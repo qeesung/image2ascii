@@ -11,26 +11,26 @@ import (
 // TestNewOptions create options with default values
 func TestNewOptions(t *testing.T) {
 	newOptions := NewOptions()
-	assert := assert.New(t)
-	assert.True(newOptions.Colored, "Default colored option should be true")
-	assert.False(newOptions.Reverse, "Default reverse option should be false")
-	assert.Equal(" .,:;i1tfLCG08@", string(newOptions.Pixels), "Default pixels should be  .,:;i1tfLCG08@")
+	assertions := assert.New(t)
+	assertions.True(newOptions.Colored, "Default colored option should be true")
+	assertions.False(newOptions.Reverse, "Default reverse option should be false")
+	assertions.Equal(" .,:;i1tfLCG08@", string(newOptions.Pixels), "Default pixels should be  .,:;i1tfLCG08@")
 }
 
 // TestMergeOptions test merge the options
 func TestMergeOptions(t *testing.T) {
-	assert := assert.New(t)
+	assertions := assert.New(t)
 	options1 := NewOptions()
 	options2 := NewOptions()
 	options2.Colored = false
 	options1.mergeOptions(&options2)
-	assert.False(options1.Reverse, "Merged reverse option should be false")
-	assert.False(options1.Colored, "Merged colored option should be false")
+	assertions.False(options1.Reverse, "Merged reverse option should be false")
+	assertions.False(options1.Colored, "Merged colored option should be false")
 }
 
 // TestConvertPixelToASCIIWhiteColor convert a white image pixel to ascii string
 func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
-	assert := assert.New(t)
+	assertions := assert.New(t)
 	r, g, b, a := uint8(255), uint8(255), uint8(255), uint8(255)
 	pixel := color.RGBA{
 		R: r,
@@ -43,20 +43,20 @@ func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
 	defaultOptions.Colored = false
 	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
 	lastPixelChar := defaultOptions.Pixels[len(defaultOptions.Pixels)-1]
-	assert.Equal(convertedChar, string([]byte{lastPixelChar}),
+	assertions.Equal(convertedChar, string([]byte{lastPixelChar}),
 		fmt.Sprintf("White color chould be converted to %s", string([]byte{lastPixelChar})))
 
 	defaultOptions.Colored = false
 	defaultOptions.Reverse = true
 	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
 	firstPixelChar := reverse(defaultOptions.Pixels)[0]
-	assert.Equal(convertedChar, string([]byte{firstPixelChar}),
+	assertions.Equal(convertedChar, string([]byte{firstPixelChar}),
 		fmt.Sprintf("Reverse white color chould be converted to %s", string([]byte{firstPixelChar})))
 }
 
 // TestConvertPixelToASCIIBlackColor convert a white image pixel to ascii string
 func TestConvertPixelToASCIIBlackColor(t *testing.T) {
-	assert := assert.New(t)
+	assertions := assert.New(t)
 	r, g, b, a := uint8(0), uint8(0), uint8(0), uint8(0)
 	pixel := color.RGBA{
 		R: r,
@@ -69,14 +69,14 @@ func TestConvertPixelToASCIIBlackColor(t *testing.T) {
 	defaultOptions.Colored = false
 	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
 	firstPixelChar := defaultOptions.Pixels[0]
-	assert.Equal(convertedChar, string([]byte{firstPixelChar}),
+	assertions.Equal(convertedChar, string([]byte{firstPixelChar}),
 		fmt.Sprintf("Black color chould be converted to %s", string([]byte{firstPixelChar})))
 
 	defaultOptions.Colored = false
 	defaultOptions.Reverse = true
 	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
 	lastPixelChar := reverse(defaultOptions.Pixels)[len(defaultOptions.Pixels)-1]
-	assert.Equal(convertedChar, string([]byte{lastPixelChar}),
+	assertions.Equal(convertedChar, string([]byte{lastPixelChar}),
 		fmt.Sprintf("Reverse Black color chould be converted to %s", string([]byte{lastPixelChar})))
 }
 
