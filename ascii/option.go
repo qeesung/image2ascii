@@ -16,7 +16,9 @@ var DefaultOptions = Options{
 
 // NewOptions create a new convert option
 func NewOptions() Options {
-	return DefaultOptions
+	newOptions := Options{}
+	newOptions.mergeOptions(&DefaultOptions)
+	return newOptions
 }
 
 // mergeOptions merge two options
