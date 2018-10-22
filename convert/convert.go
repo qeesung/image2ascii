@@ -26,7 +26,7 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 	sz := newImage.Bounds()
 	newWidth := sz.Max.Y
 	newHeight := sz.Max.X
-	rawCharValues := make([]string, int(newWidth*newHeight))
+	rawCharValues := make([]string, 0, int(newWidth*newHeight+newWidth))
 	for i := 0; i < int(newWidth); i++ {
 		for j := 0; j < int(newHeight); j++ {
 			pixel := color.NRGBAModel.Convert(newImage.At(j, i))
