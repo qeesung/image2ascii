@@ -16,7 +16,7 @@ func main() {
 	}))
 }
 
-// outout
+// output
 /*
                        .. fLCGGG8G ..
                     . GGGGGGCCCCCCCG008 ..
@@ -55,4 +55,4 @@ func main() {
               : 0C10G0088@@@@@@@@@@Ctftt8
                  @t@@@@@@@@@@@@@@@@@@8Gt ;
                 . CC@@@@@@@@@@@@@@@@@@@CL ;
- */
+*/
