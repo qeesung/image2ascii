@@ -80,6 +80,21 @@ func TestConvertPixelToASCIIBlackColor(t *testing.T) {
 		fmt.Sprintf("Reverse Black color chould be converted to %s", string([]byte{lastPixelChar})))
 }
 
+func TestColoredASCIIChar(t *testing.T) {
+	assertions := assert.New(t)
+	r, g, b, a := uint8(123), uint8(123), uint8(123), uint8(255)
+	pixel := color.RGBA{
+		R: r,
+		G: g,
+		B: b,
+		A: a,
+	}
+	defaultOptions := NewOptions()
+	defaultOptions.Colored = true
+	coloredChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	assertions.True(len(coloredChar) > 1)
+}
+
 // TestReverseSlice test reverse a slice
 func TestReverseSlice(t *testing.T) {
 	s := []byte{1, 2, 3, 4, 5}
