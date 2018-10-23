@@ -6,19 +6,15 @@ os:
   - windows
 
 go:
-  - "1.x"
   - "1.8"
   - "1.10.x"
   - "1.11.x"
-before_install:
-  - go get -t -v ./...
-
-script:
-  - go test -race -coverprofile=coverage.txt -covermode=atomic ./...
-  - go build
+  - "tip"
   
-after_success:
-  - bash <(curl -s https://codecov.io/bash)
+before_install:
+  - go get github.com/mattn/goveralls
+script:
+  - $GOPATH/bin/goveralls -service=travis-ci
 
 deploy:
   provider: releases
