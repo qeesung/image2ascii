@@ -109,3 +109,23 @@ func TestReverseSlice(t *testing.T) {
 	assert.True(t, reflect.DeepEqual(reversedSlice, expectedReversedSlice),
 		fmt.Sprintf("%+v reversed should equal to %+v", s, expectedReversedSlice))
 }
+
+
+// ExampleConvertPixelToASCII is a example convert pixel to ascii char
+func ExampleConvertPixelToASCII() {
+	// Create the pixel
+	r, g, b, a := uint8(255), uint8(255), uint8(255), uint8(255)
+	pixel := color.RGBA{
+		R: r,
+		G: g,
+		B: b,
+		A: a,
+	}
+
+	// Create the convert options
+	defaultOptions := NewOptions()
+	defaultOptions.Colored = false
+	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	fmt.Println(convertedChar)
+	// Output: @
+}
