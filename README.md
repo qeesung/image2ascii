@@ -1,7 +1,7 @@
 # :foggy: Image2ascii
 
 [![Build Status](https://travis-ci.org/qeesung/image2ascii.svg?branch=master)](https://travis-ci.org/qeesung/image2ascii)
-[![codecov](https://codecov.io/gh/qeesung/image2ascii/branch/master/graph/badge.svg)](https://codecov.io/gh/qeesung/image2ascii)
+[![Coverage Status](https://coveralls.io/repos/github/qeesung/image2ascii/badge.svg?branch=master)](https://coveralls.io/github/qeesung/image2ascii?branch=master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/71a3059b49274dde9d81d58cedd80962)](https://app.codacy.com/app/qeesung/image2ascii?utm_source=github.com&utm_medium=referral&utm_content=qeesung/image2ascii&utm_campaign=Badge_Grade_Dashboard)
 [![Go Report Card](https://goreportcard.com/badge/github.com/qeesung/image2ascii)](https://goreportcard.com/report/github.com/qeesung/image2ascii)
 [![GoDoc](https://godoc.org/github.com/qeesung/image2ascii?status.svg)](https://godoc.org/github.com/qeesung/image2ascii)
