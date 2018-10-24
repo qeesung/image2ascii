@@ -6,6 +6,8 @@ import (
 	"github.com/qeesung/image2ascii/ascii"
 	"image"
 	"image/color"
+	_ "image/jpeg"
+	_ "image/png"
 	"log"
 	"os"
 )
@@ -17,6 +19,14 @@ type Options struct {
 	ExpectedHeight int
 	FitScreen      bool
 	Colored        bool
+}
+
+var defaultOptions = Options{
+	Ratio:          1,
+	ExpectedWidth:  -1,
+	ExpectedHeight: -1,
+	FitScreen:      true,
+	Colored:        true,
 }
 
 // Image2ASCIIMatrix converts a image to ASCII matrix
@@ -54,6 +64,15 @@ func Image2ASCIIString(image image.Image, options *Options) string {
 
 // ImageFile2ASCIIString converts a image file to ascii string
 func ImageFile2ASCIIString(imageFilename string, option *Options) string {
+	img, err := OpenImageFile(imageFilename)
+	if err != nil {
+		log.Fatal("open image failed : " + err.Error())
+	}
+	return Image2ASCIIString(img, option)
+}
+
+// OpenImageFile open a image and return a image object
+func OpenImageFile(imageFilename string) (image.Image, error) {
 	f, err := os.Open(imageFilename)
 	if err != nil {
 		log.Fatal(err)
@@ -61,9 +80,9 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {
 
 	img, _, err := image.Decode(f)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
-	f.Close()
-	return Image2ASCIIString(img, option)
+	defer f.Close()
+	return img, nil
 }

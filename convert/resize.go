@@ -1,6 +1,7 @@
 package convert
 
 import (
+	"errors"
 	"github.com/mattn/go-isatty"
 	"github.com/nfnt/resize"
 	terminal "github.com/wayneashleyberry/terminal-dimensions"
@@ -14,8 +15,8 @@ import (
 func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 	sz := image.Bounds()
 	ratio := options.Ratio
-	newHeight := sz.Max.X
-	newWidth := sz.Max.Y
+	newHeight := sz.Max.Y
+	newWidth := sz.Max.X
 
 	if options.ExpectedWidth != -1 {
 		newWidth = options.ExpectedWidth
@@ -37,7 +38,10 @@ func ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 		options.ExpectedWidth == -1 &&
 		options.ExpectedHeight == -1 &&
 		options.FitScreen {
-		screenWidth, screenHeight := getFitScreenSize()
+		screenWidth, screenHeight, err := getTerminalScreenSize()
+		if err != nil {
+			log.Fatal(err)
+		}
 		newWidth = int(screenWidth)
 		newHeight = int(screenHeight)
 	}
@@ -59,14 +63,15 @@ func isWindows() bool {
 	return runtime.GOOS == "windows"
 }
 
-// getFitScreenSize get the current terminal screen size
-func getFitScreenSize() (newWidth, newHeight uint) {
+// getTerminalScreenSize get the current terminal screen size
+func getTerminalScreenSize() (newWidth, newHeight uint, err error) {
 	if !isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd()) {
-		log.Fatal("Can not detect the terminal, please disable the '-s fitScreen' option")
+		return 0, 0,
+			errors.New("can not detect the terminal, please disable the '-s fitScreen' option")
 	}
 
 	x, _ := terminal.Width()
 	y, _ := terminal.Height()
 
-	return x, y
+	return x, y, nil
 }
