@@ -62,6 +62,15 @@ func Image2ASCIIString(image image.Image, options *Options) string {
 	return buffer.String()
 }
 
+// ImageFile2ASCIIMatrix converts a image file to ascii matrix
+func ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string {
+	img, err := OpenImageFile(imageFilename)
+	if err != nil {
+		log.Fatal("open image failed : " + err.Error())
+	}
+	return Image2ASCIIMatrix(img, option)
+}
+
 // ImageFile2ASCIIString converts a image file to ascii string
 func ImageFile2ASCIIString(imageFilename string, option *Options) string {
 	img, err := OpenImageFile(imageFilename)
@@ -75,7 +84,7 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {
 func OpenImageFile(imageFilename string) (image.Image, error) {
 	f, err := os.Open(imageFilename)
 	if err != nil {
-		log.Fatal(err)
+		return nil, err
 	}
 
 	img, _, err := image.Decode(f)

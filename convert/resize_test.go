@@ -23,25 +23,6 @@ func TestGetTerminalScreenSize(t *testing.T) {
 	}
 }
 
-// TestOpenImageFile test open different type image file
-func TestOpenImageFile(t *testing.T) {
-	assertions := assert.New(t)
-	jpgFilename := "testdata/jpg_sample_image.jpg"
-	openedImage, err := OpenImageFile(jpgFilename)
-	assertions.True(err == nil, "jpg image format should be supported")
-	assertions.True(openedImage != nil, "opened jpg file should not be nil")
-
-	pngFilename := "testdata/png_sample_image.png"
-	openedImage, err = OpenImageFile(pngFilename)
-	assertions.True(err == nil, "png image format should be supported")
-	assertions.True(openedImage != nil, "opened jpg file should not be nil")
-
-	notSupported := "testdata/not_supported_sample_image"
-	openedImage, err = OpenImageFile(notSupported)
-	assertions.True(err != nil, "should not open unsupported image")
-	assertions.True(openedImage == nil, "not supported image should be nil")
-}
-
 // TestScaleImageWithFixedHeight test scale the image by fixed height
 func TestScaleImageWithFixedHeight(t *testing.T) {
 	assertions := assert.New(t)
