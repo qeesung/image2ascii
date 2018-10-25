@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"github.com/qeesung/image2ascii/convert"
@@ -28,10 +29,16 @@ func init() {
 
 func main() {
 	flag.Parse()
-
-	if imageFilename == "" {
+	if convertOptions, err := parseOptions(); err == nil {
+		fmt.Print(convert.ImageFile2ASCIIString(imageFilename, convertOptions))
+	} else {
 		usage()
-		return
+	}
+}
+
+func parseOptions() (*convert.Options, error) {
+	if imageFilename == "" {
+		return nil, errors.New("image file should not be empty")
 	}
 	// config  the options
 	convertOptions := &convert.Options{
@@ -41,7 +48,7 @@ func main() {
 		FitScreen:      fitScreen,
 		Colored:        colored,
 	}
-	fmt.Print(convert.ImageFile2ASCIIString(imageFilename, convertOptions))
+	return convertOptions, nil
 }
 
 func usage() {

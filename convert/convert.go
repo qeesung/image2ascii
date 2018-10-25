@@ -21,7 +21,7 @@ type Options struct {
 	Colored        bool
 }
 
-var defaultOptions = Options{
+var DefaultOptions = Options{
 	Ratio:          1,
 	ExpectedWidth:  -1,
 	ExpectedHeight: -1,
