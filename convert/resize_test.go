@@ -5,6 +5,7 @@ import (
 	"github.com/mattn/go-isatty"
 	"github.com/stretchr/testify/assert"
 	"io/ioutil"
+	"log"
 	"os"
 	"os/exec"
 	"strings"
@@ -15,7 +16,11 @@ import (
 func TestGetTerminalScreenSize(t *testing.T) {
 	assertions := assert.New(t)
 	_, _, err := getTerminalScreenSize()
-	assertions.True(err != nil)
+	if !isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd()) {
+		assertions.True(err != nil)
+	} else {
+		assertions.True(err == nil)
+	}
 }
 
 // TestOpenImageFile test open different type image file
@@ -154,4 +159,24 @@ func TestScaleToFitTerminalSize(t *testing.T) {
 	if e, ok := err.(*exec.ExitError); !ok || e.Success() {
 		t.Fatalf("Process ran with err %v, want exit status 1", err)
 	}
+}
+
+
+// ExampleScaleImage is scale image example
+func ExampleScaleImage() {
+	imageFilePath := "testdata/cat_2000x1500.jpg"
+	img, err := OpenImageFile(imageFilePath)
+	if err != nil {
+		log.Fatal("open image file "+imageFilePath + " failed")
+	}
+
+	options := defaultOptions
+	options.Colored = false
+	options.ExpectedWidth = 200
+	options.ExpectedHeight = 100
+
+	scaledImage := ScaleImage(img, &options)
+	sz := scaledImage.Bounds()
+	fmt.Print(sz.Max.X, sz.Max.Y)
+	// output: 200 100
 }
