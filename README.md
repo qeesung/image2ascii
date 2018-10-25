@@ -9,7 +9,7 @@
 
 Image2ASCII is a library that converts images into ASCII images and provides command-line tools for easy use.
 
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/lufei.gif?raw=true)
+![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/lufei.gif?raw=true)
 
 ## Installation
 
@@ -43,33 +43,33 @@ convert the image to ascii image with fixed width and height
 ```bash
 # width: 100
 # height: 30
-image2ascii -f example/images/baozou.jpg -w 100 -g 30
+image2ascii -f docs/images/baozou.jpg -w 100 -g 30
 ```
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/baozou.gif?raw=true)
+![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/baozou.gif?raw=true)
 
 convert the image to ascii image by ratio
 ```bash
 # ratio: 0.3
 # width: imageWidth * 0.3
 # height: imageHeight * 0.3
-image2ascii -f example/images/pikaqiu.jpg -r 0.3
+image2ascii -f docs/images/pikaqiu.jpg -r 0.3
 ```
-![demo](https://github.com/qeesung/image2ascii/blob/master/example/images/pikaqiu.gif?raw=true)
+![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/pikaqiu.gif?raw=true)
 
 
 convert the image to ascii fit the screen
 ```bash
-image2ascii -f example/images/lufei.jpg -s
+image2ascii -f docs/images/lufei.jpg -s
 ```
 
 convert the image without the color
 ```bash
-image2ascii -f example/images/lufei.jpg -s -c=false
+image2ascii -f docs/images/lufei.jpg -s -c=false
 ```
 
 convert the image disable fit the screen
 ```bash
-image2ascii -f example/images/lufei.jpg -s=false
+image2ascii -f docs/images/lufei.jpg -s=false
 ```
 
 ## Library usage
@@ -85,7 +85,7 @@ import (
 )
 
 func main() {
-	fmt.Print(convert.ImageFile2ASCIIString("example/images/baozou.jpg", &convert.Options{
+	fmt.Print(convert.ImageFile2ASCIIString("docs/images/baozou.jpg", &convert.Options{
 		Ratio: 0.5,
 	}))
 }
@@ -121,12 +121,12 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
 
 | Raw Image                                                                                       | ASCII Image                                                                                                |
 |:-----------------------------------------------------------------------------------------------:|:----------------------------------------------------------------------------------------------------------:|
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii.png)           |
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/lufei_ascii_colored.png)   |
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii.png)         |
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/pikaqiu_ascii_colored.png) |
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii.png)          |
-| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/example/images/baozou_ascii_colored.png)  |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/lufei_ascii.png)           |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/lufei.jpg)      | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/lufei_ascii_colored.png)   |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu_ascii.png)         |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu_ascii_colored.png) |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou_ascii.png)          |
+| ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou_ascii_colored.png)  |
 
 
 ## License
