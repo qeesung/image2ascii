@@ -80,7 +80,7 @@ func TestImageFile2ASCIIString(t *testing.T) {
 
 	for _, tt := range imageTests {
 		t.Run(tt.imageFilename, func(t *testing.T) {
-			convertOptions := defaultOptions
+			convertOptions := DefaultOptions
 			convertOptions.FitScreen = false
 			convertOptions.Colored = false
 

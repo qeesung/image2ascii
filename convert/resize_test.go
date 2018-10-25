@@ -31,7 +31,7 @@ func TestScaleImageWithFixedHeight(t *testing.T) {
 	assertions.True(img != nil)
 	assertions.True(err == nil)
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.ExpectedHeight = 100
 
@@ -50,7 +50,7 @@ func TestScaleImageWithFixedWidth(t *testing.T) {
 	assertions.True(img != nil)
 	assertions.True(err == nil)
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.ExpectedWidth = 200
 
@@ -69,7 +69,7 @@ func TestScaleImageWithFixedWidthHeight(t *testing.T) {
 	assertions.True(img != nil)
 	assertions.True(err == nil)
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.ExpectedWidth = 200
 	options.ExpectedHeight = 100
@@ -88,7 +88,7 @@ func TestScaleImageByRatio(t *testing.T) {
 	assertions.True(img != nil)
 	assertions.True(err == nil)
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.Ratio = 0.5
 
@@ -109,7 +109,7 @@ func TestScaleToFitTerminalSize(t *testing.T) {
 	assertions.True(img != nil)
 	assertions.True(err == nil)
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.FitScreen = true
 
@@ -151,7 +151,7 @@ func ExampleScaleImage() {
 		log.Fatal("open image file "+imageFilePath + " failed")
 	}
 
-	options := defaultOptions
+	options := DefaultOptions
 	options.Colored = false
 	options.ExpectedWidth = 200
 	options.ExpectedHeight = 100
