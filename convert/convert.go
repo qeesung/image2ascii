@@ -6,7 +6,9 @@ import (
 	"github.com/qeesung/image2ascii/ascii"
 	"image"
 	"image/color"
+	// Support decode jpeg image
 	_ "image/jpeg"
+	// Support deocde the png image
 	_ "image/png"
 	"log"
 	"os"
@@ -21,6 +23,7 @@ type Options struct {
 	Colored        bool
 }
 
+// DefaultOptions for convert image
 var DefaultOptions = Options{
 	Ratio:          1,
 	ExpectedWidth:  -1,
