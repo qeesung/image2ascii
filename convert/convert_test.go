@@ -92,3 +92,28 @@ func TestImageFile2ASCIIString(t *testing.T) {
 		})
 	}
 }
+
+
+func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
+	convertOptions := DefaultOptions
+	convertOptions.FitScreen = false
+	convertOptions.Colored = false
+	convertOptions.ExpectedWidth = 200
+	convertOptions.ExpectedHeight = 200
+
+	for i:=0; i< b.N; i++ {
+		_ = ImageFile2ASCIIMatrix("testdata/cat_2000x1500.jpg", &convertOptions)
+	}
+}
+
+func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
+	convertOptions := DefaultOptions
+	convertOptions.FitScreen = false
+	convertOptions.Colored = false
+	convertOptions.ExpectedWidth = 200
+	convertOptions.ExpectedHeight = 200
+
+	for i:=0; i< b.N; i++ {
+		_ = ImageFile2ASCIIMatrix("testdata/husky_200x200.jpg", &convertOptions)
+	}
+}

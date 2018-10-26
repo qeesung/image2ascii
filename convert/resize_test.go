@@ -142,13 +142,12 @@ func TestScaleToFitTerminalSize(t *testing.T) {
 	}
 }
 
-
 // ExampleScaleImage is scale image example
 func ExampleScaleImage() {
 	imageFilePath := "testdata/cat_2000x1500.jpg"
 	img, err := OpenImageFile(imageFilePath)
 	if err != nil {
-		log.Fatal("open image file "+imageFilePath + " failed")
+		log.Fatal("open image file " + imageFilePath + " failed")
 	}
 
 	options := DefaultOptions
@@ -160,4 +159,41 @@ func ExampleScaleImage() {
 	sz := scaledImage.Bounds()
 	fmt.Print(sz.Max.X, sz.Max.Y)
 	// output: 200 100
+}
+
+// BenchmarkScaleImage benchmark scale image test scale image
+func BenchmarkScaleBigImage(b *testing.B) {
+	imageFilePath := "testdata/cat_2000x1500.jpg"
+	img, err := OpenImageFile(imageFilePath)
+	if err != nil {
+		log.Fatalf("Open image file %s failed", imageFilePath)
+	}
+
+	options := DefaultOptions
+	options.Colored = false
+	options.FitScreen = false
+	options.ExpectedHeight = 100
+	options.ExpectedWidth = 100
+
+	for i := 0; i < b.N; i++ {
+		_ = ScaleImage(img, &options)
+	}
+}
+
+func BenchmarkScaleSmallImage(b *testing.B) {
+	imageFilePath := "testdata/husky_200x200.jpg"
+	img, err := OpenImageFile(imageFilePath)
+	if err != nil {
+		log.Fatalf("Open image file %s failed : %s", imageFilePath, err.Error())
+	}
+
+	options := DefaultOptions
+	options.Colored = false
+	options.FitScreen = false
+	options.ExpectedHeight = 100
+	options.ExpectedWidth = 100
+
+	for i := 0; i < b.N; i++ {
+		_ = ScaleImage(img, &options)
+	}
 }
