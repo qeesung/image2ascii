@@ -161,7 +161,7 @@ func ExampleScaleImage() {
 	// output: 200 100
 }
 
-// BenchmarkScaleImage benchmark scale image test scale image
+// BenchmarkScaleImage benchmark scale big image
 func BenchmarkScaleBigImage(b *testing.B) {
 	imageFilePath := "testdata/cat_2000x1500.jpg"
 	img, err := OpenImageFile(imageFilePath)
@@ -180,6 +180,7 @@ func BenchmarkScaleBigImage(b *testing.B) {
 	}
 }
 
+// BenchmarkScaleSmallImage benchmark scale small image
 func BenchmarkScaleSmallImage(b *testing.B) {
 	imageFilePath := "testdata/husky_200x200.jpg"
 	img, err := OpenImageFile(imageFilePath)

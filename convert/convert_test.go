@@ -94,6 +94,7 @@ func TestImageFile2ASCIIString(t *testing.T) {
 }
 
 
+// BenchmarkBigImage2ASCIIMatrix benchmark convert big image to ascii
 func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	convertOptions := DefaultOptions
 	convertOptions.FitScreen = false
@@ -106,6 +107,7 @@ func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	}
 }
 
+// BenchmarkSmallImage2ASCIIMatrix benchmark convert small image to ascii
 func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
 	convertOptions := DefaultOptions
 	convertOptions.FitScreen = false
