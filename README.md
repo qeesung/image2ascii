@@ -56,7 +56,6 @@ image2ascii -f docs/images/pikaqiu.jpg -r 0.3
 ```
 ![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/pikaqiu.gif?raw=true)
 
-
 convert the image to ascii fit the screen
 ```bash
 image2ascii -f docs/images/lufei.jpg -s
