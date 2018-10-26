@@ -114,8 +114,6 @@ func Image2ASCIIString(image image.Image, options *Options) string {}
 func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
 ```
 
-
-
 ## Sample outputs
 
 | Raw Image                                                                                     | ASCII Image                                                                                              |
@@ -126,7 +124,6 @@ func ImageFile2ASCIIString(imageFilename string, option *Options) string {}
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu.jpeg)   | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/pikaqiu_ascii_colored.png) |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou_ascii.png)          |
 | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou.jpg)     | ![](https://raw.githubusercontent.com/qeesung/image2ascii/master/docs/images/baozou_ascii_colored.png)  |
-
 
 ## License
 
