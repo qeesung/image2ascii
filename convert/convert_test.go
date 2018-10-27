@@ -64,12 +64,6 @@ func TestImage2ASCIIMatrix(t *testing.T) {
 				t.Errorf("image %s convert expected to %+v, but get %+v",
 					tt.imageFilename, tt.asciiMatrix, matrix)
 			}
-
-			matrixParallel := ImageFile2ASCIIMatrixParallel(tt.imageFilename, &convertOptions)
-			if !reflect.DeepEqual(matrixParallel, tt.asciiMatrix) {
-				t.Errorf("image %s convert expected to %+v, but get %+v",
-					tt.imageFilename, tt.asciiMatrix, matrixParallel)
-			}
 		})
 	}
 }
@@ -110,19 +104,6 @@ func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 
 	for i:=0; i< b.N; i++ {
 		_ = ImageFile2ASCIIMatrix("testdata/cat_2000x1500.jpg", &convertOptions)
-	}
-}
-
-// BenchmarkBigImage2ASCIIMatrix benchmark convert big image to ascii
-func BenchmarkBigImage2ASCIIMatrixParallel(b *testing.B) {
-	convertOptions := DefaultOptions
-	convertOptions.FitScreen = false
-	convertOptions.Colored = false
-	convertOptions.ExpectedWidth = 200
-	convertOptions.ExpectedHeight = 200
-
-	for i:=0; i< b.N; i++ {
-		_ = ImageFile2ASCIIMatrixParallel("testdata/cat_2000x1500.jpg", &convertOptions)
 	}
 }
 
