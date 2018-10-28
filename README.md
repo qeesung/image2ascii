@@ -72,6 +72,11 @@ convert the image disable fit the screen
 image2ascii -f docs/images/lufei.jpg -s=false
 ```
 
+convert the image reverse the chars
+```bash
+image2ascii -f docs/images/lufei.jpg -i
+```
+
 ## Library usage
 
 ```golang
