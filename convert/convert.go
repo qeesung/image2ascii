@@ -39,11 +39,11 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 	// Resize the convert first
 	newImage := ScaleImage(image, imageConvertOptions)
 	sz := newImage.Bounds()
-	newWidth := sz.Max.Y
-	newHeight := sz.Max.X
+	newWidth := sz.Max.X
+	newHeight := sz.Max.Y
 	rawCharValues := make([]string, 0, int(newWidth*newHeight+newWidth))
-	for i := 0; i < int(newWidth); i++ {
-		for j := 0; j < int(newHeight); j++ {
+	for i := 0; i < int(newHeight); i++ {
+		for j := 0; j < int(newWidth); j++ {
 			pixel := color.NRGBAModel.Convert(newImage.At(j, i))
 			// Convert the pixel to ascii char
 			pixelConvertOptions := ascii.NewOptions()
