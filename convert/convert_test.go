@@ -1,6 +1,7 @@
 package convert
 
 import (
+	"fmt"
 	"github.com/stretchr/testify/assert"
 	"reflect"
 	"testing"
@@ -93,7 +94,6 @@ func TestImageFile2ASCIIString(t *testing.T) {
 	}
 }
 
-
 // BenchmarkBigImage2ASCIIMatrix benchmark convert big image to ascii
 func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	convertOptions := DefaultOptions
@@ -102,7 +102,7 @@ func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	convertOptions.ExpectedWidth = 200
 	convertOptions.ExpectedHeight = 200
 
-	for i:=0; i< b.N; i++ {
+	for i := 0; i < b.N; i++ {
 		_ = ImageFile2ASCIIMatrix("testdata/cat_2000x1500.jpg", &convertOptions)
 	}
 }
@@ -115,7 +115,22 @@ func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
 	convertOptions.ExpectedWidth = 200
 	convertOptions.ExpectedHeight = 200
 
-	for i:=0; i< b.N; i++ {
+	for i := 0; i < b.N; i++ {
 		_ = ImageFile2ASCIIMatrix("testdata/husky_200x200.jpg", &convertOptions)
 	}
+}
+
+// ExampleImage2ASCIIMatrix is example
+func ExampleImage2ASCISString() {
+	imageFilename := "testdata/3x3_white.png"
+	convertOptions := DefaultOptions
+	convertOptions.FitScreen = false
+	convertOptions.Colored = false
+	asciiString := ImageFile2ASCIIString(imageFilename, &convertOptions)
+	fmt.Println(asciiString)
+	/* Output:
+@@@
+@@@
+@@@
+	 */
 }
