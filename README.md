@@ -32,6 +32,7 @@ Options:
         Image filename to be convert
   -g int
         Expected image height, -1 for image default height (default -1)
+  -i    Reversed the ascii when output to the terminal
   -r float
         Ratio to scale the image, ignored when use -w or -g (default 1)
   -s    Fit the terminal screen, ignored when use -w, -g, -r (default true)
