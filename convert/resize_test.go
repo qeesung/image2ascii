@@ -33,7 +33,7 @@ func TestScaleImageWithFixedHeight(t *testing.T) {
 
 	options := DefaultOptions
 	options.Colored = false
-	options.ExpectedHeight = 100
+	options.FixedHeight = 100
 
 	scaledImage := ScaleImage(img, &options)
 	sz := scaledImage.Bounds()
@@ -52,7 +52,7 @@ func TestScaleImageWithFixedWidth(t *testing.T) {
 
 	options := DefaultOptions
 	options.Colored = false
-	options.ExpectedWidth = 200
+	options.FixedWidth = 200
 
 	scaledImage := ScaleImage(img, &options)
 	sz := scaledImage.Bounds()
@@ -71,8 +71,8 @@ func TestScaleImageWithFixedWidthHeight(t *testing.T) {
 
 	options := DefaultOptions
 	options.Colored = false
-	options.ExpectedWidth = 200
-	options.ExpectedHeight = 100
+	options.FixedWidth = 200
+	options.FixedHeight = 100
 
 	scaledImage := ScaleImage(img, &options)
 	sz := scaledImage.Bounds()
@@ -152,8 +152,8 @@ func ExampleScaleImage() {
 
 	options := DefaultOptions
 	options.Colored = false
-	options.ExpectedWidth = 200
-	options.ExpectedHeight = 100
+	options.FixedWidth = 200
+	options.FixedHeight = 100
 
 	scaledImage := ScaleImage(img, &options)
 	sz := scaledImage.Bounds()
@@ -172,8 +172,8 @@ func BenchmarkScaleBigImage(b *testing.B) {
 	options := DefaultOptions
 	options.Colored = false
 	options.FitScreen = false
-	options.ExpectedHeight = 100
-	options.ExpectedWidth = 100
+	options.FixedHeight = 100
+	options.FixedWidth = 100
 
 	for i := 0; i < b.N; i++ {
 		_ = ScaleImage(img, &options)
@@ -191,8 +191,8 @@ func BenchmarkScaleSmallImage(b *testing.B) {
 	options := DefaultOptions
 	options.Colored = false
 	options.FitScreen = false
-	options.ExpectedHeight = 100
-	options.ExpectedWidth = 100
+	options.FixedHeight = 100
+	options.FixedWidth = 100
 
 	for i := 0; i < b.N; i++ {
 		_ = ScaleImage(img, &options)

@@ -18,15 +18,15 @@ func TestParseOptions(t *testing.T) {
 	ratio = 0.5
 	fitScreen = false
 	colored = false
-	expectedHeight = 100
-	expectedWidth = 100
+	fixedHeight = 100
+	fixedWidth = 100
 	opt, err :=parseOptions()
 	assertions.True(err == nil)
 	assertions.Equal(ratio, opt.Ratio)
 	assertions.False(fitScreen)
 	assertions.False(colored)
-	assertions.Equal(expectedWidth, opt.ExpectedWidth)
-	assertions.Equal(expectedHeight, opt.ExpectedHeight)
+	assertions.Equal(fixedWidth, opt.FixedWidth)
+	assertions.Equal(fixedHeight, opt.FixedHeight)
 }
 
 func TestParseUsage(t *testing.T) {

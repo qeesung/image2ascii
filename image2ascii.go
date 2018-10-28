@@ -12,20 +12,48 @@ import (
 
 var imageFilename string
 var ratio float64
-var expectedWidth int
-var expectedHeight int
+var fixedWidth int
+var fixedHeight int
 var fitScreen bool
+var stretchedScreen bool
 var colored bool
 var reversed bool
 
+var convertDefaultOptions = convert.DefaultOptions
+
 func init() {
-	flag.StringVar(&imageFilename, "f", "", "Image filename to be convert")
-	flag.Float64Var(&ratio, "r", 1, "Ratio to scale the image, ignored when use -w or -g")
-	flag.IntVar(&expectedWidth, "w", -1, "Expected image width, -1 for image default width")
-	flag.IntVar(&expectedHeight, "g", -1, "Expected image height, -1 for image default height")
-	flag.BoolVar(&fitScreen, "s", true, "Fit the terminal screen, ignored when use -w, -g, -r")
-	flag.BoolVar(&colored, "c", true, "Colored the ascii when output to the terminal")
-	flag.BoolVar(&reversed, "i", false, "Reversed the ascii when output to the terminal")
+	flag.StringVar(&imageFilename,
+		"f",
+		"",
+		"Image filename to be convert")
+	flag.Float64Var(&ratio,
+		"r",
+		convertDefaultOptions.Ratio,
+		"Ratio to scale the image, ignored when use -w or -g")
+	flag.IntVar(&fixedWidth,
+		"w",
+		convertDefaultOptions.FixedWidth,
+		"Expected image width, -1 for image default width")
+	flag.IntVar(&fixedHeight,
+		"g",
+		convertDefaultOptions.FixedHeight,
+		"Expected image height, -1 for image default height")
+	flag.BoolVar(&fitScreen,
+		"s",
+		convertDefaultOptions.FitScreen,
+		"Fit the terminal screen, ignored when use -w, -g, -r")
+	flag.BoolVar(&colored,
+		"c",
+		convertDefaultOptions.Colored,
+		"Colored the ascii when output to the terminal")
+	flag.BoolVar(&reversed,
+		"i",
+		convertDefaultOptions.Reversed,
+		"Reversed the ascii when output to the terminal")
+	flag.BoolVar(&stretchedScreen,
+		"t",
+		convertDefaultOptions.StretchedScreen,
+		"Stretch the picture to overspread the screen")
 	flag.Usage = usage
 }
 
@@ -44,12 +72,13 @@ func parseOptions() (*convert.Options, error) {
 	}
 	// config  the options
 	convertOptions := &convert.Options{
-		Ratio:          ratio,
-		ExpectedHeight: expectedHeight,
-		ExpectedWidth:  expectedWidth,
-		FitScreen:      fitScreen,
-		Colored:        colored,
-		Reversed:       reversed,
+		Ratio:           ratio,
+		FixedWidth:      fixedWidth,
+		FixedHeight:     fixedHeight,
+		FitScreen:       fitScreen,
+		StretchedScreen: stretchedScreen,
+		Colored:         colored,
+		Reversed:        reversed,
 	}
 	return convertOptions, nil
 }

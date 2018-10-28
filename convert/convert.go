@@ -16,22 +16,24 @@ import (
 
 // Options to convert the image to ASCII
 type Options struct {
-	Ratio          float64
-	ExpectedWidth  int
-	ExpectedHeight int
-	FitScreen      bool
-	Colored        bool
-	Reversed       bool
+	Ratio           float64
+	FixedWidth      int
+	FixedHeight     int
+	FitScreen       bool // only work on terminal
+	StretchedScreen bool // only work on terminal
+	Colored         bool // only work on terminal
+	Reversed        bool
 }
 
 // DefaultOptions for convert image
 var DefaultOptions = Options{
-	Ratio:          1,
-	ExpectedWidth:  -1,
-	ExpectedHeight: -1,
-	FitScreen:      true,
-	Colored:        true,
-	Reversed:       false,
+	Ratio:           1,
+	FixedWidth:      -1,
+	FixedHeight:     -1,
+	FitScreen:       true,
+	Colored:         true,
+	Reversed:        false,
+	StretchedScreen: false,
 }
 
 // Image2ASCIIMatrix converts a image to ASCII matrix
