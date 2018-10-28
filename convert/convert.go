@@ -36,10 +36,29 @@ var DefaultOptions = Options{
 	StretchedScreen: false,
 }
 
+func NewImageConverter() *ImageConverter {
+	return &ImageConverter{
+		resizeHandler:  NewResizeHandler(),
+		pixelConverter: ascii.NewPixelConverter(),
+	}
+}
+
+type Converter interface {
+	Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
+	Image2ASCIIString(image image.Image, options *Options) string
+	ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string
+	ImageFile2ASCIIString(imageFilename string, option *Options) string
+}
+
+type ImageConverter struct {
+	resizeHandler  ResizeHandler
+	pixelConverter ascii.PixelConverter
+}
+
 // Image2ASCIIMatrix converts a image to ASCII matrix
-func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string {
+func (converter *ImageConverter) Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string {
 	// Resize the convert first
-	newImage := ScaleImage(image, imageConvertOptions)
+	newImage := converter.resizeHandler.ScaleImage(image, imageConvertOptions)
 	sz := newImage.Bounds()
 	newWidth := sz.Max.X
 	newHeight := sz.Max.Y
@@ -51,7 +70,7 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 			pixelConvertOptions := ascii.NewOptions()
 			pixelConvertOptions.Colored = imageConvertOptions.Colored
 			pixelConvertOptions.Reversed = imageConvertOptions.Reversed
-			rawChar := ascii.ConvertPixelToASCII(pixel, &pixelConvertOptions)
+			rawChar := converter.pixelConverter.ConvertPixelToASCII(pixel, &pixelConvertOptions)
 			rawCharValues = append(rawCharValues, rawChar)
 		}
 		rawCharValues = append(rawCharValues, "\n")
@@ -60,8 +79,8 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 }
 
 // Image2ASCIIString converts a image to ascii matrix, and the join the matrix to a string
-func Image2ASCIIString(image image.Image, options *Options) string {
-	convertedPixelASCII := Image2ASCIIMatrix(image, options)
+func (converter *ImageConverter) Image2ASCIIString(image image.Image, options *Options) string {
+	convertedPixelASCII := converter.Image2ASCIIMatrix(image, options)
 	var buffer bytes.Buffer
 
 	for i := 0; i < len(convertedPixelASCII); i++ {
@@ -71,21 +90,21 @@ func Image2ASCIIString(image image.Image, options *Options) string {
 }
 
 // ImageFile2ASCIIMatrix converts a image file to ascii matrix
-func ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string {
+func (converter *ImageConverter) ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string {
 	img, err := OpenImageFile(imageFilename)
 	if err != nil {
 		log.Fatal("open image failed : " + err.Error())
 	}
-	return Image2ASCIIMatrix(img, option)
+	return converter.Image2ASCIIMatrix(img, option)
 }
 
 // ImageFile2ASCIIString converts a image file to ascii string
-func ImageFile2ASCIIString(imageFilename string, option *Options) string {
+func (converter *ImageConverter) ImageFile2ASCIIString(imageFilename string, option *Options) string {
 	img, err := OpenImageFile(imageFilename)
 	if err != nil {
 		log.Fatal("open image failed : " + err.Error())
 	}
-	return Image2ASCIIString(img, option)
+	return converter.Image2ASCIIString(img, option)
 }
 
 // OpenImageFile open a image and return a image object

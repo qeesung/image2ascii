@@ -30,6 +30,7 @@ func TestMergeOptions(t *testing.T) {
 
 // TestConvertPixelToASCIIWhiteColor convert a white image pixel to ascii string
 func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
+	converter := NewPixelConverter()
 	assertions := assert.New(t)
 	r, g, b, a := uint8(255), uint8(255), uint8(255), uint8(255)
 	pixel := color.RGBA{
@@ -41,14 +42,14 @@ func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
 
 	defaultOptions := NewOptions()
 	defaultOptions.Colored = false
-	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	convertedChar := converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	lastPixelChar := defaultOptions.Pixels[len(defaultOptions.Pixels)-1]
 	assertions.Equal(convertedChar, string([]byte{lastPixelChar}),
 		fmt.Sprintf("White color chould be converted to %s", string([]byte{lastPixelChar})))
 
 	defaultOptions.Colored = false
 	defaultOptions.Reversed = true
-	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
+	convertedChar = converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	firstPixelChar := defaultOptions.Pixels[0]
 	assertions.Equal(convertedChar, string([]byte{firstPixelChar}),
 		fmt.Sprintf("Reversed white color chould be converted to %s", string([]byte{firstPixelChar})))
@@ -56,6 +57,7 @@ func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
 
 // TestConvertPixelToASCIIBlackColor convert a white image pixel to ascii string
 func TestConvertPixelToASCIIBlackColor(t *testing.T) {
+	converter := NewPixelConverter()
 	assertions := assert.New(t)
 	r, g, b, a := uint8(0), uint8(0), uint8(0), uint8(0)
 	pixel := color.RGBA{
@@ -67,20 +69,21 @@ func TestConvertPixelToASCIIBlackColor(t *testing.T) {
 
 	defaultOptions := NewOptions()
 	defaultOptions.Colored = false
-	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	convertedChar := converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	firstPixelChar := defaultOptions.Pixels[0]
 	assertions.Equal(convertedChar, string([]byte{firstPixelChar}),
 		fmt.Sprintf("Black color chould be converted to %s", string([]byte{firstPixelChar})))
 
 	defaultOptions.Colored = false
 	defaultOptions.Reversed = true
-	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
+	convertedChar = converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	lastPixelChar := defaultOptions.Pixels[len(defaultOptions.Pixels)-1]
 	assertions.Equal(convertedChar, string([]byte{lastPixelChar}),
 		fmt.Sprintf("Reversed Black color chould be converted to %s", string([]byte{lastPixelChar})))
 }
 
 func TestColoredASCIIChar(t *testing.T) {
+	converter := NewPixelConverter()
 	assertions := assert.New(t)
 	r, g, b, a := uint8(123), uint8(123), uint8(123), uint8(255)
 	pixel := color.RGBA{
@@ -91,20 +94,21 @@ func TestColoredASCIIChar(t *testing.T) {
 	}
 	defaultOptions := NewOptions()
 	defaultOptions.Colored = true
-	coloredChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	coloredChar := converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	assertions.True(len(coloredChar) > 1)
 }
 
 // TestReverseSlice test reverse a slice
 func TestReverseSlice(t *testing.T) {
+	converter := PixelASCIIConverter{}
 	s := []byte{1, 2, 3, 4, 5}
-	reversedSlice := reverse(s)
+	reversedSlice := converter.reverse(s)
 	expectedReversedSlice := []byte{5, 4, 3, 2, 1}
 	assert.True(t, reflect.DeepEqual(reversedSlice, expectedReversedSlice),
 		fmt.Sprintf("%+v reversed should equal to %+v", s, expectedReversedSlice))
 
 	s = []byte{1, 2, 3, 4}
-	reversedSlice = reverse(s)
+	reversedSlice = converter.reverse(s)
 	expectedReversedSlice = []byte{4, 3, 2, 1}
 	assert.True(t, reflect.DeepEqual(reversedSlice, expectedReversedSlice),
 		fmt.Sprintf("%+v reversed should equal to %+v", s, expectedReversedSlice))
@@ -113,6 +117,7 @@ func TestReverseSlice(t *testing.T) {
 
 // ExampleConvertPixelToASCII is a example convert pixel to ascii char
 func ExampleConvertPixelToASCII() {
+	converter := NewPixelConverter()
 	// Create the pixel
 	r, g, b, a := uint8(255), uint8(255), uint8(255), uint8(255)
 	pixel := color.RGBA{
@@ -125,7 +130,7 @@ func ExampleConvertPixelToASCII() {
 	// Create the convert options
 	defaultOptions := NewOptions()
 	defaultOptions.Colored = false
-	convertedChar := ConvertPixelToASCII(pixel, &defaultOptions)
+	convertedChar := converter.ConvertPixelToASCII(pixel, &defaultOptions)
 	fmt.Println(convertedChar)
 	// Output: @
 }

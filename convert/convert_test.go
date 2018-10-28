@@ -35,6 +35,7 @@ func TestOpenNotExistsFile(t *testing.T) {
 
 // TestImage2ASCIIMatrix test convert a image to ascii matrix
 func TestImage2ASCIIMatrix(t *testing.T) {
+	converter := NewImageConverter()
 	imageTests := []struct {
 		imageFilename string
 		asciiMatrix   []string
@@ -60,7 +61,7 @@ func TestImage2ASCIIMatrix(t *testing.T) {
 			convertOptions.FitScreen = false
 			convertOptions.Colored = false
 
-			matrix := ImageFile2ASCIIMatrix(tt.imageFilename, &convertOptions)
+			matrix := converter.ImageFile2ASCIIMatrix(tt.imageFilename, &convertOptions)
 			if !reflect.DeepEqual(matrix, tt.asciiMatrix) {
 				t.Errorf("image %s convert expected to %+v, but get %+v",
 					tt.imageFilename, tt.asciiMatrix, matrix)
@@ -70,6 +71,7 @@ func TestImage2ASCIIMatrix(t *testing.T) {
 }
 
 func TestImageFile2ASCIIString(t *testing.T) {
+	converter := NewImageConverter()
 	imageTests := []struct {
 		imageFilename string
 		asciiString   string
@@ -85,7 +87,7 @@ func TestImageFile2ASCIIString(t *testing.T) {
 			convertOptions.FitScreen = false
 			convertOptions.Colored = false
 
-			charString := ImageFile2ASCIIString(tt.imageFilename, &convertOptions)
+			charString := converter.ImageFile2ASCIIString(tt.imageFilename, &convertOptions)
 			if charString != tt.asciiString {
 				t.Errorf("image %s convert expected to %+v, but get %+v",
 					tt.imageFilename, tt.asciiString, charString)
@@ -95,6 +97,7 @@ func TestImageFile2ASCIIString(t *testing.T) {
 }
 
 func TestImage2ReversedASCIIString(t *testing.T) {
+	converter := NewImageConverter()
 	imageTests := []struct {
 		imageFilename string
 		asciiString   string
@@ -110,7 +113,7 @@ func TestImage2ReversedASCIIString(t *testing.T) {
 			convertOptions.Colored = false
 			convertOptions.Reversed = true
 
-			charString := ImageFile2ASCIIString(tt.imageFilename, &convertOptions)
+			charString := converter.ImageFile2ASCIIString(tt.imageFilename, &convertOptions)
 			if charString != tt.asciiString {
 				t.Errorf("image %s convert expected to %+v, but get %+v",
 					tt.imageFilename, tt.asciiString, charString)
@@ -121,6 +124,7 @@ func TestImage2ReversedASCIIString(t *testing.T) {
 
 // BenchmarkBigImage2ASCIIMatrix benchmark convert big image to ascii
 func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
+	converter := NewImageConverter()
 	convertOptions := DefaultOptions
 	convertOptions.FitScreen = false
 	convertOptions.Colored = false
@@ -128,12 +132,13 @@ func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	convertOptions.FixedHeight = 200
 
 	for i := 0; i < b.N; i++ {
-		_ = ImageFile2ASCIIMatrix("testdata/cat_2000x1500.jpg", &convertOptions)
+		_ = converter.ImageFile2ASCIIMatrix("testdata/cat_2000x1500.jpg", &convertOptions)
 	}
 }
 
 // BenchmarkSmallImage2ASCIIMatrix benchmark convert small image to ascii
 func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
+	converter := NewImageConverter()
 	convertOptions := DefaultOptions
 	convertOptions.FitScreen = false
 	convertOptions.Colored = false
@@ -141,17 +146,18 @@ func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
 	convertOptions.FixedHeight = 200
 
 	for i := 0; i < b.N; i++ {
-		_ = ImageFile2ASCIIMatrix("testdata/husky_200x200.jpg", &convertOptions)
+		_ = converter.ImageFile2ASCIIMatrix("testdata/husky_200x200.jpg", &convertOptions)
 	}
 }
 
 // ExampleImage2ASCIIMatrix is example
 func ExampleImage2ASCISString() {
+	converter := NewImageConverter()
 	imageFilename := "testdata/3x3_white.png"
 	convertOptions := DefaultOptions
 	convertOptions.FitScreen = false
 	convertOptions.Colored = false
-	asciiString := ImageFile2ASCIIString(imageFilename, &convertOptions)
+	asciiString := converter.ImageFile2ASCIIString(imageFilename, &convertOptions)
 	fmt.Println(asciiString)
 	/* Output:
 @@@

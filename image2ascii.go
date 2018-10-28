@@ -24,7 +24,7 @@ var convertDefaultOptions = convert.DefaultOptions
 func init() {
 	flag.StringVar(&imageFilename,
 		"f",
-		"",
+		"docs/images/lufei.jpg",
 		"Image filename to be convert")
 	flag.Float64Var(&ratio,
 		"r",
@@ -60,7 +60,8 @@ func init() {
 func main() {
 	flag.Parse()
 	if convertOptions, err := parseOptions(); err == nil {
-		fmt.Print(convert.ImageFile2ASCIIString(imageFilename, convertOptions))
+		converter := convert.NewImageConverter()
+		fmt.Print(converter.ImageFile2ASCIIString(imageFilename, convertOptions))
 	} else {
 		usage()
 	}
