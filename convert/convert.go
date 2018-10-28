@@ -21,6 +21,7 @@ type Options struct {
 	ExpectedHeight int
 	FitScreen      bool
 	Colored        bool
+	Reversed       bool
 }
 
 // DefaultOptions for convert image
@@ -30,6 +31,7 @@ var DefaultOptions = Options{
 	ExpectedHeight: -1,
 	FitScreen:      true,
 	Colored:        true,
+	Reversed:       false,
 }
 
 // Image2ASCIIMatrix converts a image to ASCII matrix
@@ -46,6 +48,7 @@ func Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 			// Convert the pixel to ascii char
 			pixelConvertOptions := ascii.NewOptions()
 			pixelConvertOptions.Colored = imageConvertOptions.Colored
+			pixelConvertOptions.Reversed = imageConvertOptions.Reversed
 			rawChar := ascii.ConvertPixelToASCII(pixel, &pixelConvertOptions)
 			rawCharValues = append(rawCharValues, rawChar)
 		}

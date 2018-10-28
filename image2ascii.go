@@ -16,6 +16,7 @@ var expectedWidth int
 var expectedHeight int
 var fitScreen bool
 var colored bool
+var reversed bool
 
 func init() {
 	flag.StringVar(&imageFilename, "f", "", "Image filename to be convert")
@@ -24,6 +25,7 @@ func init() {
 	flag.IntVar(&expectedHeight, "g", -1, "Expected image height, -1 for image default height")
 	flag.BoolVar(&fitScreen, "s", true, "Fit the terminal screen, ignored when use -w, -g, -r")
 	flag.BoolVar(&colored, "c", true, "Colored the ascii when output to the terminal")
+	flag.BoolVar(&reversed, "i", false, "Reversed the ascii when output to the terminal")
 	flag.Usage = usage
 }
 
@@ -47,6 +49,7 @@ func parseOptions() (*convert.Options, error) {
 		ExpectedWidth:  expectedWidth,
 		FitScreen:      fitScreen,
 		Colored:        colored,
+		Reversed:       reversed,
 	}
 	return convertOptions, nil
 }

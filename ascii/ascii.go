@@ -12,11 +12,11 @@ import (
 
 // ConvertPixelToASCII converts a pixel to a ASCII char string
 func ConvertPixelToASCII(pixel color.Color, options *Options) string {
-	defaultOptions := NewOptions()
-	defaultOptions.mergeOptions(options)
+	convertOptions := NewOptions()
+	convertOptions.mergeOptions(options)
 
-	if defaultOptions.Reverse {
-		defaultOptions.Pixels = reverse(defaultOptions.Pixels)
+	if convertOptions.Reversed {
+		convertOptions.Pixels = reverse(convertOptions.Pixels)
 	}
 
 	r := reflect.ValueOf(pixel).FieldByName("R").Uint()
@@ -26,9 +26,9 @@ func ConvertPixelToASCII(pixel color.Color, options *Options) string {
 	value := intensity(r, g, b, a)
 
 	// Choose the char
-	precision := float64(255 * 3 / (len(options.Pixels) - 1))
-	rawChar := options.Pixels[roundValue(float64(value)/precision)]
-	if options.Colored {
+	precision := float64(255 * 3 / (len(convertOptions.Pixels) - 1))
+	rawChar := convertOptions.Pixels[roundValue(float64(value)/precision)]
+	if convertOptions.Colored {
 		return decorateWithColor(r, g, b, rawChar)
 	}
 	return string([]byte{rawChar})

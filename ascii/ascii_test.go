@@ -13,7 +13,7 @@ func TestNewOptions(t *testing.T) {
 	newOptions := NewOptions()
 	assertions := assert.New(t)
 	assertions.True(newOptions.Colored, "Default colored option should be true")
-	assertions.False(newOptions.Reverse, "Default reverse option should be false")
+	assertions.False(newOptions.Reversed, "Default reverse option should be false")
 	assertions.Equal(" .,:;i1tfLCG08@", string(newOptions.Pixels), "Default pixels should be  .,:;i1tfLCG08@")
 }
 
@@ -24,7 +24,7 @@ func TestMergeOptions(t *testing.T) {
 	options2 := NewOptions()
 	options2.Colored = false
 	options1.mergeOptions(&options2)
-	assertions.False(options1.Reverse, "Merged reverse option should be false")
+	assertions.False(options1.Reversed, "Merged reverse option should be false")
 	assertions.False(options1.Colored, "Merged colored option should be false")
 }
 
@@ -47,11 +47,11 @@ func TestConvertPixelToASCIIWhiteColor(t *testing.T) {
 		fmt.Sprintf("White color chould be converted to %s", string([]byte{lastPixelChar})))
 
 	defaultOptions.Colored = false
-	defaultOptions.Reverse = true
+	defaultOptions.Reversed = true
 	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
-	firstPixelChar := reverse(defaultOptions.Pixels)[0]
+	firstPixelChar := defaultOptions.Pixels[0]
 	assertions.Equal(convertedChar, string([]byte{firstPixelChar}),
-		fmt.Sprintf("Reverse white color chould be converted to %s", string([]byte{firstPixelChar})))
+		fmt.Sprintf("Reversed white color chould be converted to %s", string([]byte{firstPixelChar})))
 }
 
 // TestConvertPixelToASCIIBlackColor convert a white image pixel to ascii string
@@ -73,11 +73,11 @@ func TestConvertPixelToASCIIBlackColor(t *testing.T) {
 		fmt.Sprintf("Black color chould be converted to %s", string([]byte{firstPixelChar})))
 
 	defaultOptions.Colored = false
-	defaultOptions.Reverse = true
+	defaultOptions.Reversed = true
 	convertedChar = ConvertPixelToASCII(pixel, &defaultOptions)
-	lastPixelChar := reverse(defaultOptions.Pixels)[len(defaultOptions.Pixels)-1]
+	lastPixelChar := defaultOptions.Pixels[len(defaultOptions.Pixels)-1]
 	assertions.Equal(convertedChar, string([]byte{lastPixelChar}),
-		fmt.Sprintf("Reverse Black color chould be converted to %s", string([]byte{lastPixelChar})))
+		fmt.Sprintf("Reversed Black color chould be converted to %s", string([]byte{lastPixelChar})))
 }
 
 func TestColoredASCIIChar(t *testing.T) {

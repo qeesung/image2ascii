@@ -94,6 +94,31 @@ func TestImageFile2ASCIIString(t *testing.T) {
 	}
 }
 
+func TestImage2ReversedASCIIString(t *testing.T) {
+	imageTests := []struct {
+		imageFilename string
+		asciiString   string
+	}{
+		{"testdata/3x3_white.png", "   \n   \n   \n"},
+		{"testdata/3x3_black.png", "@@@\n@@@\n@@@\n"},
+	}
+
+	for _, tt := range imageTests {
+		t.Run(tt.imageFilename, func(t *testing.T) {
+			convertOptions := DefaultOptions
+			convertOptions.FitScreen = false
+			convertOptions.Colored = false
+			convertOptions.Reversed = true
+
+			charString := ImageFile2ASCIIString(tt.imageFilename, &convertOptions)
+			if charString != tt.asciiString {
+				t.Errorf("image %s convert expected to %+v, but get %+v",
+					tt.imageFilename, tt.asciiString, charString)
+			}
+		})
+	}
+}
+
 // BenchmarkBigImage2ASCIIMatrix benchmark convert big image to ascii
 func BenchmarkBigImage2ASCIIMatrix(b *testing.B) {
 	convertOptions := DefaultOptions
