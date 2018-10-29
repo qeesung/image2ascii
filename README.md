@@ -97,9 +97,8 @@ import (
 )
 
 func main() {
-	fmt.Print(convert.ImageFile2ASCIIString("docs/images/baozou.jpg", &convert.Options{
-		Ratio: 0.5,
-	}))
+	converter := convert.NewImageConverter()
+	fmt.Print(converter.ImageFile2ASCIIString(imageFilename, convertOptions))
 }
 ```
 
@@ -107,11 +106,13 @@ convert options
 
 ```golang
 type Options struct {
-	Ratio          float64 .       // Scale Ratio
-	ExpectedWidth  int             // Convert the image with fixed width
-	ExpectedHeight int             // Convert the image with fixed height
-	FitScreen      bool            // Scale the image to fit the tereminal screen
-	Colored bool                   // if convert the image to colored ascii
+	Ratio           float64 // convert ratio
+	FixedWidth      int  // convert the image width fixed width
+	FixedHeight     int  // convert the image width fixed height
+	FitScreen       bool // only work on terminal, fit the terminal height or width
+	StretchedScreen bool // only work on terminal, stretch the width and heigh to overspread the terminal screen
+	Colored         bool // only work on terminal, output ascii with color
+	Reversed        bool // if reverse the ascii pixels
 }
 ```
 
