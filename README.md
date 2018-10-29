@@ -120,14 +120,14 @@ type Options struct {
 supported convert function
 ```golang
 type Converter interface {
-    // convert a image object to ascii matrix
+	// convert a image object to ascii matrix
 	Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 	// convert a image object to ascii matrix and then join the matrix to a string
-    Image2ASCIIString(image image.Image, options *Options) string
+	Image2ASCIIString(image image.Image, options *Options) string
 	// convert a image object by input a string to ascii matrix
-    ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string
+	ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string
 	// convert a image object by input a string to ascii matrix then join the matrix to a string
-    ImageFile2ASCIIString(imageFilename string, option *Options) string
+	ImageFile2ASCIIString(imageFilename string, option *Options) string
 }
 ```
 
