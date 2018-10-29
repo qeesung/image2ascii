@@ -8,7 +8,7 @@ import (
 func TestParseEmptyFilenameOptions(t *testing.T) {
 	assertions := assert.New(t)
 	imageFilename = ""
-	_, err :=parseOptions()
+	_, err := parseOptions()
 	assertions.True(err != nil)
 }
 
@@ -20,7 +20,7 @@ func TestParseOptions(t *testing.T) {
 	colored = false
 	fixedHeight = 100
 	fixedWidth = 100
-	opt, err :=parseOptions()
+	opt, err := parseOptions()
 	assertions.True(err == nil)
 	assertions.Equal(ratio, opt.Ratio)
 	assertions.False(fitScreen)

@@ -114,7 +114,6 @@ func TestReverseSlice(t *testing.T) {
 		fmt.Sprintf("%+v reversed should equal to %+v", s, expectedReversedSlice))
 }
 
-
 // ExampleConvertPixelToASCII is a example convert pixel to ascii char
 func ExampleConvertPixelToASCII() {
 	converter := NewPixelConverter()
