@@ -151,7 +151,7 @@ func BenchmarkSmallImage2ASCIIMatrix(b *testing.B) {
 }
 
 // ExampleImage2ASCIIMatrix is example
-func ExampleImage2ASCISString() {
+func ExampleImageConverter_ImageFile2ASCIIString() {
 	converter := NewImageConverter()
 	imageFilename := "testdata/3x3_white.png"
 	convertOptions := DefaultOptions

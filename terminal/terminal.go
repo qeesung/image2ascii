@@ -13,6 +13,7 @@ const (
 	charWidthOther   = 0.5
 )
 
+// NewTerminalAccessor create a new terminal accessor
 func NewTerminalAccessor() Terminal {
 	return Accessor{}
 }
@@ -24,9 +25,12 @@ type Terminal interface {
 	IsWindows() bool
 }
 
+// Accessor implement the Terminal interface and
+// fetch the terminal basic information
 type Accessor struct {
 }
 
+// CharWidth get the terminal char width
 func (accessor Accessor) CharWidth() float64 {
 	if accessor.IsWindows() {
 		return charWidthWindows
@@ -34,10 +38,12 @@ func (accessor Accessor) CharWidth() float64 {
 	return charWidthOther
 }
 
+// IsWindows check if current system is windows
 func (accessor Accessor) IsWindows() bool {
 	return runtime.GOOS == "windows"
 }
 
+// ScreenSize get the terminal screen size
 func (accessor Accessor) ScreenSize() (newWidth, newHeight int, err error) {
 	if !isatty.IsTerminal(os.Stdout.Fd()) && !isatty.IsCygwinTerminal(os.Stdout.Fd()) {
 		return 0, 0,

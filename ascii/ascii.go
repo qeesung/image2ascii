@@ -38,14 +38,17 @@ func (options *Options) mergeOptions(newOptions *Options) {
 	options.Colored = newOptions.Colored
 }
 
+// NewPixelConverter create a new pixel converter
 func NewPixelConverter() PixelConverter {
 	return PixelASCIIConverter{}
 }
 
+// PixelConverter define the convert pixel operation
 type PixelConverter interface {
 	ConvertPixelToASCII(pixel color.Color, options *Options) string
 }
 
+// PixelASCIIConverter responsible for pixel ascii conversion
 type PixelASCIIConverter struct {
 }
 

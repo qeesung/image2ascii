@@ -194,7 +194,7 @@ func TestStretchTheTerminalScreenSize(t *testing.T) {
 }
 
 // ExampleScaleImage is scale image example
-func ExampleScaleImage() {
+func ExampleImageResizeHandler_ScaleImage() {
 	handler := NewResizeHandler()
 	imageFilePath := "testdata/cat_2000x1500.jpg"
 	img, err := OpenImageFile(imageFilePath)

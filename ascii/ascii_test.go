@@ -115,7 +115,7 @@ func TestReverseSlice(t *testing.T) {
 }
 
 // ExampleConvertPixelToASCII is a example convert pixel to ascii char
-func ExampleConvertPixelToASCII() {
+func ExamplePixelASCIIConverter_ConvertPixelToASCII() {
 	converter := NewPixelConverter()
 	// Create the pixel
 	r, g, b, a := uint8(255), uint8(255), uint8(255), uint8(255)

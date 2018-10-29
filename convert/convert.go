@@ -36,6 +36,7 @@ var DefaultOptions = Options{
 	StretchedScreen: false,
 }
 
+// NewImageConverter create a new image converter
 func NewImageConverter() *ImageConverter {
 	return &ImageConverter{
 		resizeHandler:  NewResizeHandler(),
@@ -43,6 +44,7 @@ func NewImageConverter() *ImageConverter {
 	}
 }
 
+// Converter define the convert image basic operations
 type Converter interface {
 	Image2ASCIIMatrix(image image.Image, imageConvertOptions *Options) []string
 	Image2ASCIIString(image image.Image, options *Options) string
@@ -50,6 +52,8 @@ type Converter interface {
 	ImageFile2ASCIIString(imageFilename string, option *Options) string
 }
 
+// ImageConverter implement the Convert interface, and responsible
+// to image conversion
 type ImageConverter struct {
 	resizeHandler  ResizeHandler
 	pixelConverter ascii.PixelConverter

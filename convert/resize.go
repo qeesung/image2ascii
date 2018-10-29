@@ -7,16 +7,20 @@ import (
 	"log"
 )
 
+// NewResizeHandler create a new resize handler
 func NewResizeHandler() ResizeHandler {
 	return &ImageResizeHandler{
 		terminal: terminal.NewTerminalAccessor(),
 	}
 }
 
+// ResizeHandler define the operation to resize a image
 type ResizeHandler interface {
 	ScaleImage(image image.Image, options *Options) (newImage image.Image)
 }
 
+// ImageResizeHandler implement the ResizeHandler interface and
+// responsible for image resizing
 type ImageResizeHandler struct {
 	terminal terminal.Terminal
 }
@@ -119,10 +123,12 @@ func (handler *ImageResizeHandler) CalcFitSize(width, height, toBeFitWidth, toBe
 	return
 }
 
+// ScaleWidthByRatio scaled the width by ratio
 func (handler *ImageResizeHandler) ScaleWidthByRatio(width float64, ratio float64) int {
 	return int(width * ratio)
 }
 
+// ScaleHeightByRatio scaled the height by ratio
 func (handler *ImageResizeHandler) ScaleHeightByRatio(height float64, ratio float64) int {
 	return int(height * ratio * handler.terminal.CharWidth())
 }
