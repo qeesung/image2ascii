@@ -3,6 +3,7 @@ package convert
 import (
 	"fmt"
 	terminal2 "github.com/qeesung/image2ascii/terminal"
+	"github.com/qeesung/image2ascii/terminal/mocks"
 	"github.com/stretchr/testify/assert"
 	"log"
 	"testing"
@@ -123,6 +124,73 @@ func TestCalcFitSize(t *testing.T) {
 			}
 		})
 	}
+}
+
+func TestFitTheTerminalScreenSize(t *testing.T) {
+	assertions := assert.New(t)
+	// mock
+	terminalMock := mocks.Terminal{}
+	terminalMock.On("IsWindows").Return(false)
+	terminalMock.On("CharWidth").Return(0.5)
+	terminalMock.On("ScreenSize").Return(100, 80, nil)
+	handler := ImageResizeHandler{
+		terminal: &terminalMock,
+	}
+
+	imageFilePath := "testdata/cat_2000x1500.jpg"
+	img, err := OpenImageFile(imageFilePath)
+	if err != nil {
+		log.Fatal("open image file " + imageFilePath + " failed")
+	}
+
+	assertions.False(terminalMock.IsWindows())
+	assertions.Equal(terminalMock.CharWidth(), 0.5)
+	screenWidth, screenHeight, err := terminalMock.ScreenSize()
+	assertions.Equal(screenWidth, 100)
+	assertions.Equal(screenHeight, 80)
+	assertions.True(err == nil)
+
+	options := DefaultOptions
+	options.Colored = false
+	options.FitScreen = true
+	scaledImage := handler.ScaleImage(img, &options)
+	sz := scaledImage.Bounds()
+	assertions.Equal(100, sz.Max.X)
+	assertions.Equal(37, sz.Max.Y)
+}
+
+func TestStretchTheTerminalScreenSize(t *testing.T) {
+	assertions := assert.New(t)
+	// mock
+	terminalMock := mocks.Terminal{}
+	terminalMock.On("IsWindows").Return(false)
+	terminalMock.On("CharWidth").Return(0.5)
+	terminalMock.On("ScreenSize").Return(100, 80, nil)
+	handler := ImageResizeHandler{
+		terminal: &terminalMock,
+	}
+
+	imageFilePath := "testdata/cat_2000x1500.jpg"
+	img, err := OpenImageFile(imageFilePath)
+	if err != nil {
+		log.Fatal("open image file " + imageFilePath + " failed")
+	}
+
+	assertions.False(terminalMock.IsWindows())
+	assertions.Equal(terminalMock.CharWidth(), 0.5)
+	screenWidth, screenHeight, err := terminalMock.ScreenSize()
+	assertions.Equal(screenWidth, 100)
+	assertions.Equal(screenHeight, 80)
+	assertions.True(err == nil)
+
+	options := DefaultOptions
+	options.Colored = false
+	options.StretchedScreen = true
+	options.FitScreen = false
+	scaledImage := handler.ScaleImage(img, &options)
+	sz := scaledImage.Bounds()
+	assertions.Equal(100, sz.Max.X)
+	assertions.Equal(80, sz.Max.Y)
 }
 
 // ExampleScaleImage is scale image example
