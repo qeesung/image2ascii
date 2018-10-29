@@ -40,6 +40,12 @@ Options:
         Expected image width, -1 for image default width (default -1)
 ```
 
+convert the image fit the screen(default is true)
+```bash
+image2ascii -f docs/images/pikaqiu2.jpg
+```
+![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/pikaqiu_s.gif?raw=true)
+
 convert the image to ascii image with fixed width and height
 ```bash
 # width: 100
@@ -57,10 +63,11 @@ image2ascii -f docs/images/pikaqiu.jpg -r 0.3
 ```
 ![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/pikaqiu.gif?raw=true)
 
-convert the image to ascii fit the screen
+convert the image to stretch the screen
 ```bash
-image2ascii -f docs/images/lufei.jpg -s
+image2ascii -f docs/images/long.jpg -t
 ```
+![demo](https://github.com/qeesung/image2ascii/blob/master/docs/images/long.gif?raw=true)
 
 convert the image without the color
 ```bash
