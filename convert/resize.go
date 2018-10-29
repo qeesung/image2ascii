@@ -46,24 +46,10 @@ func (handler *ImageResizeHandler) ScaleImage(image image.Image, options *Option
 		newHeight = handler.ScaleHeightByRatio(float64(sz.Max.Y), ratio)
 	}
 
-	// fit the screen
-	if ratio == 1 &&
-		options.FixedWidth == -1 &&
-		options.FixedHeight == -1 &&
-		options.FitScreen {
-		fitWidth, fitHeight, err := handler.CalcProportionalFittingScreenSize(image)
-		if err != nil {
-			log.Fatal(err)
-		}
-		newWidth = int(fitWidth)
-		newHeight = int(fitHeight)
-	}
-
 	//Stretch the picture to overspread the terminal
 	if ratio == 1 &&
 		options.FixedWidth == -1 &&
 		options.FixedHeight == -1 &&
-		!options.FitScreen &&
 		options.StretchedScreen {
 		screenWidth, screenHeight, err := handler.terminal.ScreenSize()
 		if err != nil {
@@ -71,6 +57,20 @@ func (handler *ImageResizeHandler) ScaleImage(image image.Image, options *Option
 		}
 		newWidth = int(screenWidth)
 		newHeight = int(screenHeight)
+	}
+
+	// fit the screen
+	if ratio == 1 &&
+		options.FixedWidth == -1 &&
+		options.FixedHeight == -1 &&
+		options.FitScreen &&
+		!options.StretchedScreen {
+		fitWidth, fitHeight, err := handler.CalcProportionalFittingScreenSize(image)
+		if err != nil {
+			log.Fatal(err)
+		}
+		newWidth = int(fitWidth)
+		newHeight = int(fitHeight)
 	}
 
 	newImage = resize.Resize(uint(newWidth), uint(newHeight), image, resize.Lanczos3)
