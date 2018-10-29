@@ -29,13 +29,14 @@ Usage: image2ascii [-s] -f <filename> -r <ratio> -w <width> -g <height>
 Options:
   -c    Colored the ascii when output to the terminal (default true)
   -f string
-        Image filename to be convert
+        Image filename to be convert (default "docs/images/lufei.jpg")
   -g int
         Expected image height, -1 for image default height (default -1)
   -i    Reversed the ascii when output to the terminal
   -r float
         Ratio to scale the image, ignored when use -w or -g (default 1)
   -s    Fit the terminal screen, ignored when use -w, -g, -r (default true)
+  -t    Stretch the picture to overspread the screen
   -w int
         Expected image width, -1 for image default width (default -1)
 ```
