@@ -24,7 +24,7 @@ var convertDefaultOptions = convert.DefaultOptions
 func init() {
 	flag.StringVar(&imageFilename,
 		"f",
-		"docs/images/lufei.jpg",
+		"",
 		"Image filename to be convert")
 	flag.Float64Var(&ratio,
 		"r",
