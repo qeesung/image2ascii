@@ -10,8 +10,8 @@ import (
 	"reflect"
 )
 
-// PixelASCII is converted pixel ascii
-type PixelASCII struct {
+// CharPixel is converted pixel ascii
+type CharPixel struct {
 	Char byte
 	R    uint8
 	G    uint8
@@ -55,15 +55,15 @@ func NewPixelConverter() PixelConverter {
 // PixelConverter define the convert pixel operation
 type PixelConverter interface {
 	ConvertPixelToASCII(pixel color.Color, options *Options) string
-	ConvertPixelToPixelASCII(pixel color.Color, options *Options) PixelASCII
+	ConvertPixelToPixelASCII(pixel color.Color, options *Options) CharPixel
 }
 
 // PixelASCIIConverter responsible for pixel ascii conversion
 type PixelASCIIConverter struct {
 }
 
-// ConvertPixelToPixelASCII convert a image pixel to PixelASCII
-func (converter PixelASCIIConverter) ConvertPixelToPixelASCII(pixel color.Color, options *Options) PixelASCII {
+// ConvertPixelToPixelASCII convert a image pixel to CharPixel
+func (converter PixelASCIIConverter) ConvertPixelToPixelASCII(pixel color.Color, options *Options) CharPixel {
 	convertOptions := NewOptions()
 	convertOptions.mergeOptions(options)
 
@@ -80,7 +80,7 @@ func (converter PixelASCIIConverter) ConvertPixelToPixelASCII(pixel color.Color,
 	// Choose the char
 	precision := float64(255 * 3 / (len(convertOptions.Pixels) - 1))
 	rawChar := convertOptions.Pixels[converter.roundValue(float64(value)/precision)]
-	return PixelASCII{
+	return CharPixel{
 		Char: rawChar,
 		R:    uint8(r),
 		G:    uint8(g),

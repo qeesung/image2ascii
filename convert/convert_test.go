@@ -96,7 +96,7 @@ func TestImageFile2ASCIIString(t *testing.T) {
 	}
 }
 
-func TestImageFile2PixelASCIIMatrix(t *testing.T) {
+func TestImageFile2CharPixelMatrix(t *testing.T) {
 	converter := NewImageConverter()
 	imageTests := []struct {
 		imageFilename string
@@ -114,7 +114,7 @@ func TestImageFile2PixelASCIIMatrix(t *testing.T) {
 			convertOptions.FitScreen = false
 			convertOptions.Colored = false
 
-			matrix := converter.ImageFile2PixelASCIIMatrix(tt.imageFilename, &convertOptions)
+			matrix := converter.ImageFile2CharPixelMatrix(tt.imageFilename, &convertOptions)
 			if len(matrix) != tt.height|| len(matrix[0]) != tt.width{
 				t.Errorf("image %s convert expected to %+v, %+v, but get %+v",
 					tt.imageFilename, tt.width, tt.height, matrix)
