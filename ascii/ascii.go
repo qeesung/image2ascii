@@ -10,6 +10,14 @@ import (
 	"reflect"
 )
 
+type PixelASCII struct {
+	Char byte
+	R    uint8
+	G    uint8
+	B    uint8
+	A    uint8
+}
+
 // Options convert pixel to raw char
 type Options struct {
 	Pixels   []byte
@@ -46,14 +54,15 @@ func NewPixelConverter() PixelConverter {
 // PixelConverter define the convert pixel operation
 type PixelConverter interface {
 	ConvertPixelToASCII(pixel color.Color, options *Options) string
+	ConvertPixelToPixelASCII(pixel color.Color, options *Options) PixelASCII
 }
 
 // PixelASCIIConverter responsible for pixel ascii conversion
 type PixelASCIIConverter struct {
 }
 
-// ConvertPixelToASCII converts a pixel to a ASCII char string
-func (converter PixelASCIIConverter) ConvertPixelToASCII(pixel color.Color, options *Options) string {
+// ConvertPixelToPixelASCII convert a image pixel to PixelASCII
+func (converter PixelASCIIConverter) ConvertPixelToPixelASCII(pixel color.Color, options *Options) PixelASCII {
 	convertOptions := NewOptions()
 	convertOptions.mergeOptions(options)
 
@@ -70,6 +79,22 @@ func (converter PixelASCIIConverter) ConvertPixelToASCII(pixel color.Color, opti
 	// Choose the char
 	precision := float64(255 * 3 / (len(convertOptions.Pixels) - 1))
 	rawChar := convertOptions.Pixels[converter.roundValue(float64(value)/precision)]
+	return PixelASCII{
+		Char: rawChar,
+		R:    uint8(r),
+		G:    uint8(g),
+		B:    uint8(b),
+		A:    uint8(a),
+	}
+}
+
+// ConvertPixelToASCII converts a pixel to a ASCII char string
+func (converter PixelASCIIConverter) ConvertPixelToASCII(pixel color.Color, options *Options) string {
+	convertOptions := NewOptions()
+	convertOptions.mergeOptions(options)
+
+	pixelASCII := converter.ConvertPixelToPixelASCII(pixel, options)
+	rawChar, r, g, b := pixelASCII.Char, pixelASCII.R, pixelASCII.G, pixelASCII.B
 	if convertOptions.Colored {
 		return converter.decorateWithColor(r, g, b, rawChar)
 	}
@@ -93,7 +118,7 @@ func (converter PixelASCIIConverter) intensity(r, g, b, a uint64) uint64 {
 }
 
 // decorateWithColor decorate the raw char with the color base on r,g,b value
-func (converter PixelASCIIConverter) decorateWithColor(r, g, b uint64, rawChar byte) string {
+func (converter PixelASCIIConverter) decorateWithColor(r, g, b uint8, rawChar byte) string {
 	coloredChar := rgbterm.FgString(string([]byte{rawChar}), uint8(r), uint8(g), uint8(b))
 	return coloredChar
 }

@@ -50,6 +50,8 @@ type Converter interface {
 	Image2ASCIIString(image image.Image, options *Options) string
 	ImageFile2ASCIIMatrix(imageFilename string, option *Options) []string
 	ImageFile2ASCIIString(imageFilename string, option *Options) string
+	Image2PixelASCIIMatrix(image image.Image, imageConvertOptions *Options) [][]ascii.PixelASCII
+	ImageFile2PixelASCIIMatrix(image image.Image, imageConvertOptions *Options) [][]ascii.PixelASCII
 }
 
 // ImageConverter implement the Convert interface, and responsible
@@ -57,6 +59,38 @@ type Converter interface {
 type ImageConverter struct {
 	resizeHandler  ResizeHandler
 	pixelConverter ascii.PixelConverter
+}
+
+// Image2PixelASCIIMatrix convert a image to a pixel ascii matrix
+func (converter *ImageConverter) Image2PixelASCIIMatrix(image image.Image, imageConvertOptions *Options) [][]ascii.PixelASCII {
+	newImage := converter.resizeHandler.ScaleImage(image, imageConvertOptions)
+	sz := newImage.Bounds()
+	newWidth := sz.Max.X
+	newHeight := sz.Max.Y
+	pixelASCIIs := make([][]ascii.PixelASCII, 0, newHeight)
+	for i := 0; i < int(newHeight); i++ {
+		line := make([]ascii.PixelASCII, 0, newWidth)
+		for j := 0; j < int(newWidth); j++ {
+			pixel := color.NRGBAModel.Convert(newImage.At(j, i))
+			// Convert the pixel to ascii char
+			pixelConvertOptions := ascii.NewOptions()
+			pixelConvertOptions.Colored = imageConvertOptions.Colored
+			pixelConvertOptions.Reversed = imageConvertOptions.Reversed
+			pixelASCII := converter.pixelConverter.ConvertPixelToPixelASCII(pixel, &pixelConvertOptions)
+			line = append(line, pixelASCII)
+		}
+		pixelASCIIs = append(pixelASCIIs, line)
+	}
+	return pixelASCIIs
+}
+
+// Image2PixelASCIIMatrix convert a image to a pixel ascii matrix
+func (converter *ImageConverter) ImageFile2PixelASCIIMatrix(imageFilename string, imageConvertOptions *Options) [][]ascii.PixelASCII {
+	img, err := OpenImageFile(imageFilename)
+	if err != nil {
+		log.Fatal("open image failed : " + err.Error())
+	}
+	return converter.Image2PixelASCIIMatrix(img, imageConvertOptions)
 }
 
 // Image2ASCIIMatrix converts a image to ASCII matrix

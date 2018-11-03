@@ -96,6 +96,33 @@ func TestImageFile2ASCIIString(t *testing.T) {
 	}
 }
 
+func TestImageFile2PixelASCIIMatrix(t *testing.T) {
+	converter := NewImageConverter()
+	imageTests := []struct {
+		imageFilename string
+		width         int
+		height        int
+	}{
+		{"testdata/3x3_black.png", 3, 3},
+		{"testdata/3x3_white.png", 3,3},
+		{"testdata/8x3_multi_colors.png", 8, 3},
+	}
+
+	for _, tt := range imageTests {
+		t.Run(tt.imageFilename, func(t *testing.T) {
+			convertOptions := DefaultOptions
+			convertOptions.FitScreen = false
+			convertOptions.Colored = false
+
+			matrix := converter.ImageFile2PixelASCIIMatrix(tt.imageFilename, &convertOptions)
+			if len(matrix) != tt.height|| len(matrix[0]) != tt.width{
+				t.Errorf("image %s convert expected to %+v, %+v, but get %+v",
+					tt.imageFilename, tt.width, tt.height, matrix)
+			}
+		})
+	}
+}
+
 func TestImage2ReversedASCIIString(t *testing.T) {
 	converter := NewImageConverter()
 	imageTests := []struct {
