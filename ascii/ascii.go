@@ -10,6 +10,7 @@ import (
 	"reflect"
 )
 
+// PixelASCII is converted pixel ascii
 type PixelASCII struct {
 	Char byte
 	R    uint8

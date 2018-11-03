@@ -84,7 +84,7 @@ func (converter *ImageConverter) Image2PixelASCIIMatrix(image image.Image, image
 	return pixelASCIIs
 }
 
-// Image2PixelASCIIMatrix convert a image to a pixel ascii matrix
+// ImageFile2PixelASCIIMatrix convert a image to a pixel ascii matrix
 func (converter *ImageConverter) ImageFile2PixelASCIIMatrix(imageFilename string, imageConvertOptions *Options) [][]ascii.PixelASCII {
 	img, err := OpenImageFile(imageFilename)
 	if err != nil {
