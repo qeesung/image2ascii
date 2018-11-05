@@ -14,13 +14,3 @@ before_install:
 - go get github.com/mattn/goveralls
 script:
 - $GOPATH/bin/goveralls -service=travis-ci
-
-deploy:
-  provider: releases
-  api_key: ${GITHUB_API_KEY}
-  file_glob: true
-  file: "image2ascii*"
-  skip_cleanup: true
-  on:
-    all_branches: true
-    tags: true
