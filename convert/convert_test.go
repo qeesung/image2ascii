@@ -115,7 +115,7 @@ func TestImageFile2CharPixelMatrix(t *testing.T) {
 			convertOptions.Colored = false
 
 			matrix := converter.ImageFile2CharPixelMatrix(tt.imageFilename, &convertOptions)
-			if len(matrix) != tt.height || len(matrix[0]) != tt.width{
+			if len(matrix) != tt.height || len(matrix[0]) != tt.width {
 				t.Errorf("image %s convert expected to %+v, %+v, but get %+v",
 					tt.imageFilename, tt.width, tt.height, matrix)
 			}
@@ -186,9 +186,4 @@ func ExampleImageConverter_ImageFile2ASCIIString() {
 	convertOptions.Colored = false
 	asciiString := converter.ImageFile2ASCIIString(imageFilename, &convertOptions)
 	fmt.Println(asciiString)
-	/* Output:
-@@@
-@@@
-@@@
-	 */
 }
