@@ -104,7 +104,7 @@ func TestImageFile2CharPixelMatrix(t *testing.T) {
 		height        int
 	}{
 		{"testdata/3x3_black.png", 3, 3},
-		{"testdata/3x3_white.png", 3,3},
+		{"testdata/3x3_white.png", 3, 3},
 		{"testdata/8x3_multi_colors.png", 8, 3},
 	}
 
@@ -115,7 +115,7 @@ func TestImageFile2CharPixelMatrix(t *testing.T) {
 			convertOptions.Colored = false
 
 			matrix := converter.ImageFile2CharPixelMatrix(tt.imageFilename, &convertOptions)
-			if len(matrix) != tt.height|| len(matrix[0]) != tt.width{
+			if len(matrix) != tt.height || len(matrix[0]) != tt.width{
 				t.Errorf("image %s convert expected to %+v, %+v, but get %+v",
 					tt.imageFilename, tt.width, tt.height, matrix)
 			}
