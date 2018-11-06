@@ -9,9 +9,76 @@ import (
 
 // NewResizeHandler create a new resize handler
 func NewResizeHandler() ResizeHandler {
-	return &ImageResizeHandler{
+	handler := &ImageResizeHandler{
 		terminal: terminal.NewTerminalAccessor(),
 	}
+
+	initResizeResolver(handler)
+	return handler
+}
+
+// initResizeResolver register the size resolvers
+func initResizeResolver(handler *ImageResizeHandler) {
+	sizeResolvers := make([]imageSizeResolver, 0, 5)
+	// fixed height or width resolver
+	sizeResolvers = append(sizeResolvers, imageSizeResolver{
+		match: func(options *Options) bool {
+			return options.FixedWidth != -1 || options.FixedHeight != -1
+		},
+		compute: func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error) {
+			height = sz.Max.Y
+			width = sz.Max.X
+			if options.FixedWidth != -1 {
+				width = options.FixedWidth
+			}
+
+			if options.FixedHeight != -1 {
+				height = options.FixedHeight
+			}
+			return
+		},
+	})
+	// scaled by ratio
+	sizeResolvers = append(sizeResolvers, imageSizeResolver{
+		match: func(options *Options) bool {
+			return options.Ratio != 1
+		},
+		compute: func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error) {
+			ratio := options.Ratio
+			width = handler.ScaleWidthByRatio(float64(sz.Max.X), ratio)
+			height = handler.ScaleHeightByRatio(float64(sz.Max.Y), ratio)
+			return
+		},
+	})
+	// scaled by stretched screen
+	sizeResolvers = append(sizeResolvers, imageSizeResolver{
+		match: func(options *Options) bool {
+			return options.StretchedScreen
+		},
+		compute: func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error) {
+			return handler.terminal.ScreenSize()
+		},
+	})
+	// scaled by fit the screen
+	sizeResolvers = append(sizeResolvers, imageSizeResolver{
+		match: func(options *Options) bool {
+			return options.FitScreen
+		},
+		compute: func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error) {
+			return handler.CalcProportionalFittingScreenSize(sz)
+		},
+	})
+	// default size
+	sizeResolvers = append(sizeResolvers, imageSizeResolver{
+		match: func(options *Options) bool {
+			return true
+		},
+		compute: func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error) {
+			return sz.Max.X, sz.Max.Y, nil
+		},
+	})
+
+	handler.imageSizeResolvers = sizeResolvers
 }
 
 // ResizeHandler define the operation to resize a image
@@ -22,69 +89,45 @@ type ResizeHandler interface {
 // ImageResizeHandler implement the ResizeHandler interface and
 // responsible for image resizing
 type ImageResizeHandler struct {
-	terminal terminal.Terminal
+	terminal           terminal.Terminal
+	imageSizeResolvers []imageSizeResolver
+}
+
+// imageSizeResolver to resolve the image size from the options
+type imageSizeResolver struct {
+	match   func(options *Options) bool
+	compute func(sz image.Rectangle, options *Options, handler *ImageResizeHandler) (width, height int, err error)
 }
 
 // ScaleImage resize the convert to expected size base on the convert options
 func (handler *ImageResizeHandler) ScaleImage(image image.Image, options *Options) (newImage image.Image) {
 	sz := image.Bounds()
-	ratio := options.Ratio
-	newHeight := sz.Max.Y
-	newWidth := sz.Max.X
-
-	if options.FixedWidth != -1 {
-		newWidth = options.FixedWidth
-	}
-
-	if options.FixedHeight != -1 {
-		newHeight = options.FixedHeight
-	}
-
-	// use the ratio the scale the image
-	if options.FixedHeight == -1 && options.FixedWidth == -1 && ratio != 1 {
-		newWidth = handler.ScaleWidthByRatio(float64(sz.Max.X), ratio)
-		newHeight = handler.ScaleHeightByRatio(float64(sz.Max.Y), ratio)
-	}
-
-	//Stretch the picture to overspread the terminal
-	if ratio == 1 &&
-		options.FixedWidth == -1 &&
-		options.FixedHeight == -1 &&
-		options.StretchedScreen {
-		screenWidth, screenHeight, err := handler.terminal.ScreenSize()
-		if err != nil {
-			log.Fatal(err)
-		}
-		newWidth = int(screenWidth)
-		newHeight = int(screenHeight)
-	}
-
-	// fit the screen
-	if ratio == 1 &&
-		options.FixedWidth == -1 &&
-		options.FixedHeight == -1 &&
-		options.FitScreen &&
-		!options.StretchedScreen {
-		fitWidth, fitHeight, err := handler.CalcProportionalFittingScreenSize(image)
-		if err != nil {
-			log.Fatal(err)
-		}
-		newWidth = int(fitWidth)
-		newHeight = int(fitHeight)
+	newWidth, newHeight, err := handler.resolveSize(sz, options)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	newImage = resize.Resize(uint(newWidth), uint(newHeight), image, resize.Lanczos3)
 	return
 }
 
+// resolveSize resolve the image size
+func (handler *ImageResizeHandler) resolveSize(sz image.Rectangle, options *Options) (width, height int, err error) {
+	for _, resolver := range handler.imageSizeResolvers {
+		if resolver.match(options) {
+			return resolver.compute(sz, options, handler)
+		}
+	}
+	return sz.Max.X, sz.Max.Y, nil
+}
+
 // CalcProportionalFittingScreenSize proportional scale the image
 // so that the terminal can just show the picture.
-func (handler *ImageResizeHandler) CalcProportionalFittingScreenSize(image image.Image) (newWidth, newHeight int, err error) {
+func (handler *ImageResizeHandler) CalcProportionalFittingScreenSize(sz image.Rectangle) (newWidth, newHeight int, err error) {
 	screenWidth, screenHeight, err := handler.terminal.ScreenSize()
 	if err != nil {
 		log.Fatal(nil)
 	}
-	sz := image.Bounds()
 	newWidth, newHeight = handler.CalcFitSize(
 		float64(screenWidth),
 		float64(screenHeight),

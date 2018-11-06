@@ -136,6 +136,7 @@ func TestFitTheTerminalScreenSize(t *testing.T) {
 	handler := ImageResizeHandler{
 		terminal: &terminalMock,
 	}
+	initResizeResolver(&handler)
 
 	imageFilePath := "testdata/cat_2000x1500.jpg"
 	img, err := OpenImageFile(imageFilePath)
@@ -169,6 +170,7 @@ func TestStretchTheTerminalScreenSize(t *testing.T) {
 	handler := ImageResizeHandler{
 		terminal: &terminalMock,
 	}
+	initResizeResolver(&handler)
 
 	imageFilePath := "testdata/cat_2000x1500.jpg"
 	img, err := OpenImageFile(imageFilePath)
