@@ -6,6 +6,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/qeesung/image2ascii)](https://goreportcard.com/report/github.com/qeesung/image2ascii)
 [![GoDoc](https://godoc.org/github.com/qeesung/image2ascii?status.svg)](https://godoc.org/github.com/qeesung/image2ascii)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
 Image2ASCII is a library that converts images into ASCII images and provides command-line tools for easy use.
 
