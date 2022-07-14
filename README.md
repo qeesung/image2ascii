@@ -15,7 +15,7 @@ Image2ASCII is a library that converts images into ASCII images and provides com
 ## Installation
 
 ```bash
-go get github.com/qeesung/image2ascii
+go install github.com/qeesung/image2ascii@latest
 ```
 
 ## CLI usage
