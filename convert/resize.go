@@ -1,10 +1,11 @@
 package convert
 
 import (
-	"github.com/nfnt/resize"
-	"github.com/qeesung/image2ascii/terminal"
 	"image"
 	"log"
+
+	"github.com/nfnt/resize"
+	"github.com/qeesung/image2ascii/terminal"
 )
 
 // NewResizeHandler create a new resize handler
@@ -126,7 +127,7 @@ func (handler *ImageResizeHandler) resolveSize(sz image.Rectangle, options *Opti
 func (handler *ImageResizeHandler) CalcProportionalFittingScreenSize(sz image.Rectangle) (newWidth, newHeight int, err error) {
 	screenWidth, screenHeight, err := handler.terminal.ScreenSize()
 	if err != nil {
-		log.Fatal(nil)
+		log.Fatal(err)
 	}
 	newWidth, newHeight = handler.CalcFitSize(
 		float64(screenWidth),
