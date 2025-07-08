@@ -1,0 +1,34 @@
+name: Nix Build
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    runs-on: ${{ matrix.os }}
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Install Nix
+      uses: cachix/install-nix-action@v27
+      with:
+        nix_path: nixpkgs=channel:nixos-unstable
+
+    - name: Build with Nix
+      run: nix build
+
+    - name: Check build result
+      run: |
+        ls -la result/
+        ./result/bin/image2ascii --help
+
+    - name: Run tests
+      run: nix develop --command go test ./...
