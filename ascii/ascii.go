@@ -120,6 +120,24 @@ func (converter PixelASCIIConverter) intensity(r, g, b, a uint64) uint64 {
 
 // decorateWithColor decorate the raw char with the color base on r,g,b value
 func (converter PixelASCIIConverter) decorateWithColor(r, g, b uint8, rawChar byte) string {
-	coloredChar := rgbterm.FgString(string([]byte{rawChar}), uint8(r), uint8(g), uint8(b))
+	// Light characters (representing bright pixels) should be white on black background
+	// Dark characters (representing dark pixels) should use original color on black background
+	lightChars := " .,:;i1"
+	isLightChar := false
+	for _, c := range []byte(lightChars) {
+		if rawChar == c {
+			isLightChar = true
+			break
+		}
+	}
+	
+	var coloredChar string
+	if isLightChar {
+		// Use white foreground for light characters on black background
+		coloredChar = rgbterm.String(string([]byte{rawChar}), 255, 255, 255, 0, 0, 0)
+	} else {
+		// Use original pixel color for dark characters on black background
+		coloredChar = rgbterm.String(string([]byte{rawChar}), uint8(r), uint8(g), uint8(b), 0, 0, 0)
+	}
 	return coloredChar
 }
